@@ -4,7 +4,13 @@ import * as Animatable from 'react-native-animatable';
 import { Button } from 'react-native-paper';
 import theme from '../../styles/theme.style';
 
-const FormStep3 = ({ emojis, setEmojis, handleSubmit }) => {
+interface Props {
+  setEmojis(val: string): void;
+  emojis: string;
+  handleSubmit: () => void;
+}
+
+const FormStep3: React.FC<Props> = ({ emojis, setEmojis, handleSubmit }) => {
   return (
     <View style={styles.container}>
       <Animatable.View animation="fadeInUpBig" style={styles.wrapper}>

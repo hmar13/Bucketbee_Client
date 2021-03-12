@@ -2,81 +2,26 @@ import React, { useState } from 'react';
 import { View, Text, StyleSheet, TextInput } from 'react-native';
 import * as Animatable from 'react-native-animatable';
 import { Button } from 'react-native-paper';
-import RadioGroup from 'react-native-radio-buttons-group';
 import theme from '../../styles/theme.style';
 
-const radioButtonsData = [
-  {
-    id: '1', // acts as primary key, should be unique and non-empty string
-    label: 'Beach',
-    value: 'option1',
-    labelStyle: {
-      color: theme.PRIMARY_COLOR_XLITE,
-      fontSize: 20,
-      fontFamily: 'Lato_300Light',
-    },
-    color: theme.PRIMARY_COLOR_XLITE,
-    size: 20,
-    containerStyle: {
-      alignSelf: 'flex-start',
-    },
-  },
-  {
-    id: '2',
-    label: 'Mountains',
-    value: 'option2',
-    color: theme.PRIMARY_COLOR_XLITE,
-    labelStyle: {
-      color: theme.PRIMARY_COLOR_XLITE,
-      fontSize: 20,
-      fontFamily: 'Lato_300Light',
-    },
-    size: 20,
-  },
-  {
-    id: '3',
-    label: 'City',
-    value: 'option3',
-    color: theme.PRIMARY_COLOR_XLITE,
-    size: 20,
-    labelStyle: {
-      color: theme.PRIMARY_COLOR_XLITE,
-      fontSize: 20,
-      fontFamily: 'Lato_300Light',
-    },
-  },
-];
-
-const FormStep2 = ({ setCount, setVibe }) => {
-  const [radioButtons, setRadioButtons] = useState(radioButtonsData);
-
-  const onPressRadioButton = (radioButtonsArray) => {
-    setRadioButtons(radioButtonsArray);
-  };
-
-  const handleSubmit = () => {
-    const selected = radioButtons.filter((b) => b.selected === true);
-    if (selected[0]) {
-      setVibe(selected[0].label);
-    }
-    setCount((val) => val + 1);
-  };
-
+const FormStep3 = ({ emojis, setEmojis, handleSubmit }) => {
   return (
     <View style={styles.container}>
       <Animatable.View animation="fadeInUpBig" style={styles.wrapper}>
-        <Text style={styles.text}>Beach / mountain / city?</Text>
-        <RadioGroup
-          layout="row"
-          radioButtons={radioButtons}
-          onPress={onPressRadioButton}
+        <Text style={styles.text}>Describe yourself in 3 emojis:</Text>
+        <TextInput
+          value={emojis}
+          onChangeText={(val) => setEmojis(val)}
+          placeholder="Emojis go here"
+          style={styles.input}
+          placeholderTextColor={theme.PRIMARY_COLOR_XLITE}
         />
         <Button
-          style={styles.button}
           labelStyle={{ color: theme.PRIMARY_COLOR }}
+          style={styles.button}
           onPress={handleSubmit}
         >
-          NEXT
+          SUBMIT
         </Button>
       </Animatable.View>
     </View>
@@ -91,9 +36,9 @@ const styles = StyleSheet.create({
     backgroundColor: theme.PRIMARY_COLOR,
   },
   wrapper: {
-    height: 240,
+    height: 200,
     width: 300,
-    justifyContent: 'space-around',
+    justifyContent: 'center',
   },
   input: {
     width: 280,
@@ -116,8 +61,8 @@ const styles = StyleSheet.create({
     color: theme.PRIMARY_COLOR_XLITE,
     fontSize: 24,
     fontFamily: 'Poppins_400Regular',
-    paddingBottom: 15,
+    paddingBottom: 8,
   },
 });
 
-export default FormStep2;
+export default FormStep3;

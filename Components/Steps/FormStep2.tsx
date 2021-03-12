@@ -64,7 +64,6 @@ const FormStep2: React.FC<Props> = ({ setCount, setVibe }) => {
 
   const handleSubmit = () => {
     const selected = radioButtons.filter((b) => b.selected === true);
-    console.log('Selected', selected);
     if (selected[0].label) {
       setVibe(selected[0].label);
     }
