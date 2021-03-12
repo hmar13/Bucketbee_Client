@@ -1,10 +1,16 @@
-import React, { useState } from 'react';
+import React from 'react';
 import theme from '../styles/theme.style';
 import Dialog from 'react-native-dialog';
 
 import { View } from 'react-native';
 
-const AcceptBucketDialog = ({
+interface Props {
+  setAcceptDialogVisible(val: boolean): void;
+  acceptDialogVisible: boolean;
+  handleBucketAdd(): void;
+}
+
+const AcceptBucketDialog: React.FC<Props> = ({
   acceptDialogVisible,
   setAcceptDialogVisible,
   handleBucketAdd,
