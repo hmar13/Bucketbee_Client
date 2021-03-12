@@ -4,9 +4,15 @@ import * as Animatable from 'react-native-animatable';
 import { Button } from 'react-native-paper';
 import theme from '../../styles/theme.style';
 
-const FormStep1 = ({ setCount, location, setLocation }) => {
+interface Props {
+  setCount(val: Function): number;
+  location: string;
+  setLocation(val: string): string;
+}
+
+const FormStep1: React.FC<Props> = ({ setCount, location, setLocation }) => {
   const handleChange = () => {
-    setCount((val) => val + 1);
+    setCount((val: number) => val + 1);
   };
 
   return (
