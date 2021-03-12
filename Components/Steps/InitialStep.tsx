@@ -5,11 +5,16 @@ import * as Animatable from 'react-native-animatable';
 import { Button } from 'react-native-paper';
 import theme from '../../styles/theme.style';
 
-const InitialStep = ({ setCount }) => {
+interface Props {
+  setCount(val: Function): void;
+  // dispatch(val: {signIn: null; fillForm: null}): void;
+}
+
+const InitialStep: React.FC<Props> = ({ setCount }) => {
   const { dispatch } = useContext(AuthContext);
 
   const handleConfirm = () => {
-    setCount((val) => val + 1);
+    setCount((val: number) => val + 1);
   };
 
   const handleSkip = () => {
