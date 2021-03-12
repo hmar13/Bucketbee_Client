@@ -1,6 +1,8 @@
 import React from 'react';
 import { AppRegistry } from 'react-native';
 import { Store } from './Operations/Store';
+const REACT_NATIVE_URL = config['REACT_NATIVE_URL'];
+import config from './config';
 
 import {
   ApolloClient,
@@ -55,7 +57,7 @@ console.disableYellowBox = true;
 
 //for all queries/mutations
 const httpLink = new HttpLink({
-  uri: 'http://192.168.0.80:4000/graphql',
+  uri: `http://${REACT_NATIVE_URL}`,
 });
 
 //Changed from 192.168.1.115:4000
@@ -63,7 +65,7 @@ const httpLink = new HttpLink({
 
 //for all subscriptions
 const wsLink = new WebSocketLink({
-  uri: 'ws://192.168.0.80:4000/graphql',
+  uri: `ws://${REACT_NATIVE_URL}`,
   options: {
     reconnect: true,
   },
