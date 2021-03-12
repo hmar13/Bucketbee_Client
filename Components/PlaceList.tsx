@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 import React, { useState } from 'react';
 import {
   Text,
@@ -35,13 +36,13 @@ const PlaceList: React.FC<Props> = ({ places, catId, bucketId }) => {
       deletePlace({
         variables: { bucketId, catId, placeId },
         update(cache) {
-          const category: Category = cache.readFragment({
+          const category: Category | null = cache.readFragment({
             id: `Category:${catId}`,
             fragment: PLACE_ARRAY_FRAGMENT,
           });
-          const newPlaces: Place[] = category.places.filter(
-            (p) => p.id !== placeId,
-          );
+          const newPlaces: Place[] = category ? category.places.filter(
+              (p) => p.id !== placeId
+            ) : [];
           cache.writeFragment({
             id: `Category:${catId}`,
             fragment: PLACE_ARRAY_FRAGMENT,
