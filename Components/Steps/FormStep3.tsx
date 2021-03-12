@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { View, Text, StyleSheet, TextInput } from 'react-native';
 import * as Animatable from 'react-native-animatable';
 import { Button } from 'react-native-paper';

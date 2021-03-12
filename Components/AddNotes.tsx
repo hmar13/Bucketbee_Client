@@ -5,39 +5,46 @@ import {
   View,
   StyleSheet,
   Pressable,
-  FlatList,
   KeyboardAvoidingView,
-  Alert,
 } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
-import { TextInput, Button, FAB } from 'react-native-paper';
-import { useQuery, useMutation, gql } from '@apollo/client';
+import { TextInput, Button } from 'react-native-paper';
+import { useMutation } from '@apollo/client';
 import { EDIT_PLACE_NOTES } from '../Services/Places/PlacesMutation';
 import { PLACE_ARRAY_FRAGMENT } from '../Services/Places/PlacesFragment';
 import { AntDesign } from '@expo/vector-icons';
 import theme from '../styles/theme.style';
+import Place from '../interfaces/Place';
+import Category from '../interfaces/Category';
 
-const AddNotes = ({ place, noteModalVisible, setNoteModalVisible }) => {
+interface Props {
+  place: any;
+  noteModalVisible: boolean;
+  setNoteModalVisible(val: boolean): void;
+}
+
+const AddNotes: React.FC<Props> = ({ place, noteModalVisible, setNoteModalVisible }) => {
   const navigation = useNavigation();
-
-  if (!place.notes) place.notes = '';
+  if (!place.notes) place.notes = ''
   const [notes, setNotes] = useState(place.notes);
   const [editPlaceNotes] = useMutation(EDIT_PLACE_NOTES);
 
-  const handleEdit = () => {
+  const handleEdit = (): void => {
     const { bucketId, catId, id } = place;
     const placeId = id;
     editPlaceNotes({
       variables: { bucketId, catId, placeId, notes },
       update(cache, { data }) {
-        const category = cache.readFragment({
+        const category: Category | null = cache.readFragment({
           id: `Category:${catId}`,
           fragment: PLACE_ARRAY_FRAGMENT,
         });
-        const newPlaces = category.places.map((p) => {
-          if (p.id === placeId) p = data?.editPlaceNotes;
-          return p;
-        });
+        const newPlaces: Place[] = category
+          ? category.places.map((p) => {
+              if (p.id === placeId) p = data?.editPlaceNotes;
+              return p;
+            })
+          : [];
         cache.writeFragment({
           id: `Category:${catId}`,
           fragment: PLACE_ARRAY_FRAGMENT,

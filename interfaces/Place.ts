@@ -15,4 +15,4 @@ export default interface Place {
   url: string;
   user_ratings_total: number | null;
   weekday_text: any[];
-};
+}
