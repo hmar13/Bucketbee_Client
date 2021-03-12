@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, Text, StyleSheet, TextInput } from 'react-native';
+import { View, Text, StyleSheet } from 'react-native';
 import * as Animatable from 'react-native-animatable';
 import { Button } from 'react-native-paper';
 import RadioGroup, { RadioButtonProps } from 'react-native-radio-buttons-group';
