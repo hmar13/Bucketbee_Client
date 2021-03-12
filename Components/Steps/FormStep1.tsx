@@ -5,9 +5,9 @@ import { Button } from 'react-native-paper';
 import theme from '../../styles/theme.style';
 
 interface Props {
-  setCount(val: Function): number;
+  setCount(val: Function): void;
   location: string;
-  setLocation(val: string): string;
+  setLocation(val: string): void;
 }
 
 const FormStep1: React.FC<Props> = ({ setCount, location, setLocation }) => {

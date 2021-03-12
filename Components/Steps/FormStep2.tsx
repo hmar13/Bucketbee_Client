@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { View, Text, StyleSheet, TextInput } from 'react-native';
 import * as Animatable from 'react-native-animatable';
 import { Button } from 'react-native-paper';
-import RadioGroup from 'react-native-radio-buttons-group';
+import RadioGroup, { RadioButtonProps } from 'react-native-radio-buttons-group';
 import theme from '../../styles/theme.style';
 
 const radioButtonsData = [
@@ -47,19 +47,28 @@ const radioButtonsData = [
   },
 ];
 
-const FormStep2 = ({ setCount, setVibe }) => {
-  const [radioButtons, setRadioButtons] = useState(radioButtonsData);
+interface Props {
+  setCount(val: Function): void;
+  setVibe(val: string): void;
+  onPressRadioButton(val: []): void;
+}
 
-  const onPressRadioButton = (radioButtonsArray) => {
+const FormStep2: React.FC<Props> = ({ setCount, setVibe }) => {
+  const [radioButtons, setRadioButtons] = useState<RadioButtonProps[]>(
+    radioButtonsData,
+  );
+
+  const onPressRadioButton = (radioButtonsArray: RadioButtonProps[]) => {
     setRadioButtons(radioButtonsArray);
   };
 
   const handleSubmit = () => {
     const selected = radioButtons.filter((b) => b.selected === true);
-    if (selected[0]) {
+    console.log('Selected', selected);
+    if (selected[0].label) {
       setVibe(selected[0].label);
     }
-    setCount((val) => val + 1);
+    setCount((val: number) => val + 1);
   };
 
   return (
