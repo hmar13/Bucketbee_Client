@@ -55,12 +55,15 @@ console.disableYellowBox = true;
 
 //for all queries/mutations
 const httpLink = new HttpLink({
-  uri: 'http://192.168.1.115:4000/graphql',
+  uri: 'http://192.168.0.80:4000/graphql',
 });
+
+//Changed from 192.168.1.115:4000
+// 192.168.0.80:4000
 
 //for all subscriptions
 const wsLink = new WebSocketLink({
-  uri: 'ws://192.168.1.115:4000/graphql',
+  uri: 'ws://192.168.0.80:4000/graphql',
   options: {
     reconnect: true,
   },
