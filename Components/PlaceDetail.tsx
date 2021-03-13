@@ -1,5 +1,6 @@
 /* eslint-disable react-native/no-inline-styles */
 import React, { useState } from 'react';
+import { GestureResponderEvent } from 'react-native';
 import theme from '../styles/theme.style';
 import { FAB, Portal, Provider } from 'react-native-paper';
 import Icon from 'react-native-vector-icons/Ionicons';
@@ -19,7 +20,37 @@ import {
 import { AntDesign } from '@expo/vector-icons';
 import { FontAwesome } from '@expo/vector-icons';
 
-const PlaceDetail = ({ place, onPress, pdVisible, onAdd }) => {
+//Can't get into buckets on Android, check with IOS to see what undefined below can also be |
+type placeDetail = {
+  name: string;
+  rating: undefined; //undefined or?
+  formatted_address: string;
+  international_phone_number: undefined; //undefined or?
+  imgArr: string[];
+  description: string;
+  open_now: undefined; //undefined or?
+  weekday_text: undefined; //undefined or?
+  user_ratings_total: undefined; //undefined or?
+  review: undefined; //undefined or?
+  url: string;
+  latitude: number;
+  longitude: number;
+};
+
+interface PropsPlaceDetail {
+  place: placeDetail;
+  onPress(val: Function): void;
+  onPress(): (val: boolean) => void;
+  pdVisible: boolean;
+  onAdd(): (val: boolean) => void;
+}
+
+const PlaceDetail: React.FC<PropsPlaceDetail> = ({
+  place,
+  onPress,
+  pdVisible,
+  onAdd,
+}) => {
   return (
     <Modal transparent={true} visible={pdVisible} animationType="slide">
       <View style={styles.modal}>
