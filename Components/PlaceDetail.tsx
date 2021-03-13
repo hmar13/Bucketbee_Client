@@ -19,27 +19,10 @@ import {
 } from 'react-native';
 import { AntDesign } from '@expo/vector-icons';
 import { FontAwesome } from '@expo/vector-icons';
-
-//Can't get into buckets on Android, check with IOS to see what undefined below can also be |
-type placeDetail = {
-  name: string;
-  rating: undefined; //undefined or?
-  formatted_address: string;
-  international_phone_number: undefined; //undefined or?
-  imgArr: string[];
-  description: string;
-  open_now: undefined; //undefined or?
-  weekday_text: undefined; //undefined or?
-  user_ratings_total: undefined; //undefined or?
-  review: undefined; //undefined or?
-  url: string;
-  latitude: number;
-  longitude: number;
-};
+import Place from '../interfaces/Place';
 
 interface PropsPlaceDetail {
-  place: placeDetail;
-  onPress(val: Function): void;
+  place: Place;
   onPress(): (val: boolean) => void;
   pdVisible: boolean;
   onAdd(): (val: boolean) => void;

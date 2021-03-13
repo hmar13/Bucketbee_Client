@@ -46,6 +46,7 @@ const MapInput: React.FC<Props> = ({ updateLocation, renderPlacePreview }) => {
         },
       }}
       placeholder={'Search'}
+      //autoFocus in google-places-autocomplete package hasn't been included so ignoring the error:
       // @ts-ignore: Unreachable code error
       autoFocus={true}
       fetchDetails={true}

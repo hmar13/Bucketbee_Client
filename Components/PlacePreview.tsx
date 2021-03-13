@@ -11,8 +11,19 @@ import {
   Pressable,
 } from 'react-native';
 import { FontAwesome } from '@expo/vector-icons';
+import Place from '../interfaces/Place';
 
-const PlacePreview = ({ place, onPress, onAdd }) => {
+interface PropsPlacePreview {
+  place: Place;
+  onPress(): (val: boolean) => void;
+  onAdd(): (val: boolean) => void;
+}
+
+const PlacePreview: React.FC<PropsPlacePreview> = ({
+  place,
+  onPress,
+  onAdd,
+}) => {
   const [openFAB, setOpenFab] = useState(false);
 
   return (
@@ -72,6 +83,8 @@ const PlacePreview = ({ place, onPress, onAdd }) => {
       </Pressable>
       <Provider>
         <Portal>
+          {/* https://github.com/callstack/react-native-paper/issues/1971 */}
+          {/* @ts-ignore: Unreachable code error */}
           <FAB.Group
             open={openFAB}
             fabStyle={{
