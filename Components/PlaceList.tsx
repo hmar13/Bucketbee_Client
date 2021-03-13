@@ -19,13 +19,13 @@ import theme from '../styles/theme.style';
 import Place from '../interfaces/Place';
 import Category from '../interfaces/Category';
 
-interface Props {
+interface PlaceListProps {
   places: Place[];
   catId: string;
   bucketId: string;
 }
 
-const PlaceList: React.FC<Props> = ({ places, catId, bucketId }) => {
+const PlaceList: React.FC<PlaceListProps> = ({ places, catId, bucketId }) => {
   const navigation = useNavigation();
   const [deleteVisible, setDeleteVisible] = useState(false);
   const [placeId, setPlaceId] = useState<string | null>(null);

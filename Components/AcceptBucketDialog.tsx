@@ -4,13 +4,13 @@ import Dialog from 'react-native-dialog';
 
 import { View } from 'react-native';
 
-interface Props {
+interface AcceptBucketDialogProps {
   setAcceptDialogVisible(val: boolean): void;
   acceptDialogVisible: boolean;
   handleBucketAdd(): void;
 }
 
-const AcceptBucketDialog: React.FC<Props> = ({
+const AcceptBucketDialog: React.FC<AcceptBucketDialogProps> = ({
   acceptDialogVisible,
   setAcceptDialogVisible,
   handleBucketAdd,
