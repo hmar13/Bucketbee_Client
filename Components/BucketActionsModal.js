@@ -17,7 +17,7 @@ import { GET_BUCKETS } from '../Services/Buckets/BucketsQuery';
 import { CHANGE_BUCKET_NAME } from '../Services/Buckets/BucketsMutation';
 import { GET_CHATS } from '../Services/Chats/ChatsQuery';
 import { POST_MESSAGE_TO_CHAT } from '../Services/Chats/ChatsMutation';
-import DeleteDialog from '../Components/DeleteDialog';
+import DeleteDialog from './DeleteDialog';
 import theme from '../styles/theme.style';
 import BouncyCheckbox from 'react-native-bouncy-checkbox';
 import { AntDesign } from '@expo/vector-icons';
