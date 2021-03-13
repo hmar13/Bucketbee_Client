@@ -4,7 +4,17 @@ import { GooglePlacesAutocomplete } from 'react-native-google-places-autocomplet
 
 const PLACE_API_KEY = config['REACT_NATIVE_GOOGLE_API_KEY'];
 
-const MapInput = ({ updateLocation, renderPlacePreview }) => {
+interface LatLng {
+  lat: number;
+  lng: number;
+}
+
+interface Props {
+  updateLocation(val: LatLng): void;
+  renderPlacePreview(val: object): void;
+}
+
+const MapInput: React.FC<Props> = ({ updateLocation, renderPlacePreview }) => {
   return (
     <GooglePlacesAutocomplete
       styles={{
@@ -36,11 +46,14 @@ const MapInput = ({ updateLocation, renderPlacePreview }) => {
         },
       }}
       placeholder={'Search'}
+      // @ts-ignore: Unreachable code error
       autoFocus={true}
       fetchDetails={true}
       onPress={(data, details = null) => {
-        updateLocation(details.geometry.location);
-        renderPlacePreview(details);
+        if (details) {
+          updateLocation(details.geometry.location);
+          renderPlacePreview(details);
+        } //create an else statement here if details doesn't return the object
       }}
       onFail={(error) => console.error(error)}
       query={{
