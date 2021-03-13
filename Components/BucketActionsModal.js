@@ -8,7 +8,7 @@ import {
   TextInput,
 } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { useQuery, useLazyQuery, useMutation } from '@apollo/client';
+import { useLazyQuery, useMutation } from '@apollo/client';
 import { Button } from 'react-native-paper';
 import Modal from 'react-native-modal';
 import { GET_USER_BY_ID } from '../Services/Users/UsersQuery';
