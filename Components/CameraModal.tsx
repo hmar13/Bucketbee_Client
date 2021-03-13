@@ -9,13 +9,19 @@ import {
   SafeAreaView,
 } from 'react-native';
 import { useQuery, useMutation } from '@apollo/client';
-import CreatePlace from '../Components/CreatePlace';
+import CreatePlace from './CreatePlace';
 import CloseKeyboard from '../Operations/CloseKeyboard';
 import { Button } from 'react-native-paper';
 import Modal from 'react-native-modal';
 import theme from '../styles/theme.style';
 
-const CameraModal = ({ cmVisible, setCMVisible, handleModalChange }) => {
+interface Props {
+  cmVisible: boolean
+  setCMVisible(val: boolean): void;
+  handleModalChange(): void;
+}
+
+const CameraModal: React.FC<Props> = ({ cmVisible, setCMVisible, handleModalChange }) => {
   return (
     <Modal
       isVisible={cmVisible}

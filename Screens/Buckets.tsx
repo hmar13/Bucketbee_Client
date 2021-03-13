@@ -8,8 +8,14 @@ import BucketCard from '../Components/BucketCard';
 import BucketAddModal from '../Components/BucketAddModal';
 import { FAB } from 'react-native-paper';
 import theme from '../styles/theme.style';
+import Bucket from '../interfaces/Bucket';
 
-const Buckets = ({ navigation }) => {
+interface BucketProps {
+  navigation: any
+}
+
+
+const Buckets: React.FC<BucketProps> = ({ navigation }) => {
   const [modalVisible, setModalVisible] = useState(false);
   const [userId, setUserId] = useState(null);
   const [isLoaded, setIsLoaded] = useState(false);
@@ -29,7 +35,7 @@ const Buckets = ({ navigation }) => {
     }
   };
 
-  const { loading, error, data } = useQuery(GET_BUCKETS, {
+  const { loading, error, data } = useQuery<{getBuckets:Bucket[]}>(GET_BUCKETS, {
     variables: { userId },
     pollInterval: 500,
   });

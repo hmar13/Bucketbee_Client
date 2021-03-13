@@ -1,9 +1,24 @@
 import React from 'react';
 import theme from '../styles/theme.style';
-import { View, Text, StyleSheet, TouchableHighlight } from 'react-native';
+import {
+  View,
+  Text,
+  StyleSheet,
+  TouchableHighlight
+} from 'react-native';
 import moment from 'moment';
+import Place from '../interfaces/Place';
+import Bucket from '../interfaces/Bucket';
 
-const BucketCard = ({ bucket, onPress }) => {
+
+interface Props {
+  bucket: Bucket;
+  onPress(): void;
+}
+
+
+const BucketCard: React.FC<Props> = ({ bucket, onPress }) => {
+  console.log('Bucket', bucket);
   return (
     <TouchableHighlight
       style={{ borderRadius: 25, marginVertical: 18 }}

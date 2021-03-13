@@ -7,7 +7,6 @@ import theme from '../../styles/theme.style';
 
 interface Props {
   setCount(val: Function): void;
-  // dispatch(val: {signIn: null; fillForm: null}): void;
 }
 
 const InitialStep: React.FC<Props> = ({ setCount }) => {
