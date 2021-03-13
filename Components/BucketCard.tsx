@@ -11,13 +11,13 @@ import Place from '../interfaces/Place';
 import Bucket from '../interfaces/Bucket';
 
 
-interface Props {
+interface BucketCardProps {
   bucket: Bucket;
   onPress(): void;
 }
 
 
-const BucketCard: React.FC<Props> = ({ bucket, onPress }) => {
+const BucketCard: React.FC<BucketCardProps> = ({ bucket, onPress }) => {
   console.log('Bucket', bucket);
   return (
     <TouchableHighlight

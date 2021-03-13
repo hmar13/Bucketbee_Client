@@ -17,13 +17,13 @@ import theme from '../styles/theme.style';
 import Place from '../interfaces/Place';
 import Category from '../interfaces/Category';
 
-interface Props {
+interface AddNotesProps {
   place: any;
   noteModalVisible: boolean;
   setNoteModalVisible(val: boolean): void;
 }
 
-const AddNotes: React.FC<Props> = ({ place, noteModalVisible, setNoteModalVisible }) => {
+const AddNotes: React.FC<AddNotesProps> = ({ place, noteModalVisible, setNoteModalVisible }) => {
   const navigation = useNavigation();
   if (!place.notes) place.notes = ''
   const [notes, setNotes] = useState(place.notes);

@@ -15,13 +15,13 @@ import { Button } from 'react-native-paper';
 import Modal from 'react-native-modal';
 import theme from '../styles/theme.style';
 
-interface Props {
+interface CameraModalProps {
   cmVisible: boolean
   setCMVisible(val: boolean): void;
   handleModalChange(): void;
 }
 
-const CameraModal: React.FC<Props> = ({ cmVisible, setCMVisible, handleModalChange }) => {
+const CameraModal: React.FC<CameraModalProps> = ({ cmVisible, setCMVisible, handleModalChange }) => {
   return (
     <Modal
       isVisible={cmVisible}

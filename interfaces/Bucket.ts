@@ -5,8 +5,8 @@ export default interface Bucket {
   __typename: string;
   categories: Category[];
   places: Place[];
-  date_created: string;
-  notes: string;
+  date_created?: string;
+  notes?: string;
   title: string;
   id: string;
 }

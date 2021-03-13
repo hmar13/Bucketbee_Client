@@ -22,14 +22,21 @@ import BucketActionsModal from '../Components/BucketActionsModal';
 import PlaceList from '../Components/PlaceList';
 import DeleteDialog from '../Components/DeleteDialog';
 import { CAT_ARRAY_FRAGMENT } from '../Services/Categories/CatFragment';
+import Bucket from '../interfaces/Bucket';
+import Category from '../interfaces/Category';
 
-const Categories = ({ route, navigation }) => {
+interface CategoriesProps {
+  navigation: any;
+  route: any;
+}
+
+const Categories: React.FC<CategoriesProps> = ({ route, navigation }) => {
   const { id } = route.params;
 
   const [modalVisible, setModalVisible] = useState(false);
   const [baModalVisible, setBaModalVisible] = useState(false);
   const [deleteVisible, setDeleteVisible] = useState(false);
-  const [catId, setCatId] = useState(null);
+  const [catId, setCatId] = useState<string | null>(null);
   const [goBack, setGoBack] = useState(false);
   const [isLoaded, setIsLoaded] = useState(false);
 
@@ -37,11 +44,11 @@ const Categories = ({ route, navigation }) => {
     if (goBack) navigation.navigate('Buckets');
   }, [goBack]);
 
-  const { loading, error, data } = useQuery(GET_BUCKET_BY_ID, {
+  const { loading, error, data } = useQuery<{getBucketById:Bucket}>(GET_BUCKET_BY_ID, {
     variables: { bucketId: id },
     pollInterval: 500,
   });
-  let categories = [];
+  let categories: Category[] = [];
   let title = '';
   if (data) {
     setTimeout(() => {
@@ -59,11 +66,11 @@ const Categories = ({ route, navigation }) => {
     deleteCategory({
       variables: { bucketId: id, catId },
       update(cache) {
-        const bucket = cache.readFragment({
+        const bucket: Bucket | null = cache.readFragment({
           id: `Bucket:${id}`,
           fragment: CAT_ARRAY_FRAGMENT,
         });
-        const newCategories = bucket.categories.filter((c) => c.id !== catId);
+        const newCategories: Category[] = bucket ? bucket.categories.filter((c) => c.id !== catId) : [];
         cache.writeFragment({
           id: `Bucket:${id}`,
           fragment: CAT_ARRAY_FRAGMENT,

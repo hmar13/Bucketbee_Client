@@ -10,12 +10,12 @@ import { FAB } from 'react-native-paper';
 import theme from '../styles/theme.style';
 import Bucket from '../interfaces/Bucket';
 
-interface BucketProps {
+interface BucketsProps {
   navigation: any
 }
 
 
-const Buckets: React.FC<BucketProps> = ({ navigation }) => {
+const Buckets: React.FC<BucketsProps> = ({ navigation }) => {
   const [modalVisible, setModalVisible] = useState(false);
   const [userId, setUserId] = useState(null);
   const [isLoaded, setIsLoaded] = useState(false);
