@@ -9,6 +9,7 @@ import theme from '../styles/theme.style';
 import { EvilIcons } from '@expo/vector-icons';
 import { FontAwesome } from '@expo/vector-icons';
 import LoadingAnimation from '../Components/LoadingAnimation';
+import User from '../interfaces/User';
 
 import {
   View,
@@ -20,8 +21,12 @@ import {
   Alert,
 } from 'react-native';
 
-const Explore = ({ navigation }) => {
-  const [user, setUser] = useState(null);
+interface PropsExplore {
+  navigation: any;
+}
+
+const Explore: React.FC<PropsExplore> = ({ navigation }) => {
+  const [user, setUser] = useState<User | null>(null);
   const [isLoaded, setIsLoaded] = useState(false);
 
   const [getUserById] = useLazyQuery(GET_USER_BY_ID, {
@@ -48,7 +53,11 @@ const Explore = ({ navigation }) => {
 
   const loadImages = async () => {
     let res;
-    let vibe = user.vibe.toLowerCase();
+    let vibe;
+    if (user) {
+      vibe = user.vibe.toLowerCase();
+    }
+
     if (vibe === 'city')
       res = await Asset.loadAsync(require(`../assets/city.png`));
     else if (!vibe || vibe === 'mountains')
@@ -82,6 +91,7 @@ const Explore = ({ navigation }) => {
   if (user && isLoaded) {
     let icon;
     let vibe = user.vibe.toLowerCase();
+
     if (!vibe || vibe === 'mountains') icon = require(`../assets/mountain.png`);
     else if (vibe === 'city') icon = require(`../assets/city.png`);
     else if (vibe === 'beach') icon = require(`../assets/beach.png`);
