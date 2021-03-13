@@ -1,8 +1,10 @@
 import React from 'react';
-import { Button, StyleSheet, View } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 import LottieView from 'lottie-react-native';
 
 export default class LoadingAnimation extends React.Component {
+  animation: any;
+
   componentDidMount() {
     this.animation.play();
   }
