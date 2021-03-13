@@ -18,7 +18,6 @@ interface BucketCardProps {
 
 
 const BucketCard: React.FC<BucketCardProps> = ({ bucket, onPress }) => {
-  console.log('Bucket', bucket);
   return (
     <TouchableHighlight
       style={{ borderRadius: 25, marginVertical: 18 }}

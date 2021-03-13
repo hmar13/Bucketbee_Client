@@ -5,20 +5,27 @@ import {
   View,
   StyleSheet,
   Pressable,
-  FlatList,
   KeyboardAvoidingView,
   Alert,
 } from 'react-native';
-import { TextInput, Button, FAB } from 'react-native-paper';
+import { TextInput, Button } from 'react-native-paper';
 
-import { useQuery, useMutation } from '@apollo/client';
+import { useMutation } from '@apollo/client';
 import { AntDesign } from '@expo/vector-icons';
 
 import { GET_BUCKETS } from '../Services/Buckets/BucketsQuery';
 import { CREATE_BUCKET } from '../Services/Buckets/BucketsMutation';
 import theme from '../styles/theme.style';
+import Bucket from '../interfaces/Bucket';
 
-const BucketAddModal = ({ userId, modalVisible, setModalVisible, place }) => {
+interface BucketAddModalProps {
+  userId: string;
+  modalVisible: boolean;
+  setModalVisible(val: boolean): void;
+  place: null;
+}
+
+const BucketAddModal: React.FC<BucketAddModalProps> = ({ userId, modalVisible, setModalVisible, place }) => {
   const [title, setTitle] = useState('');
   const [category, setCategory] = useState('');
   const [notes, setNotes] = useState('');
@@ -33,15 +40,16 @@ const BucketAddModal = ({ userId, modalVisible, setModalVisible, place }) => {
         variables: { input: { title, notes, category }, place, userId },
 
         update(cache, { data }) {
-          const newBucket = data?.createBucket;
-          const existingBuckets = cache.readQuery({
+          const newBucket: Bucket = data?.createBucket;
+          const existingBuckets: {getBuckets:Bucket[]} | null = cache.readQuery({
             query: GET_BUCKETS,
             variables: {
               userId,
             },
           });
-
-          let getBuckets;
+          console.log('EXISTING ',existingBuckets)
+          console.log('getbuckets ',existingBuckets?.getBuckets)
+          let getBuckets: Bucket[];
           if (!existingBuckets) {
             getBuckets = [];
           } else {
@@ -182,6 +190,11 @@ const styles = StyleSheet.create({
     shadowOffset: { width: 0, height: 1 },
     shadowOpacity: 0.2,
     shadowRadius: 8,
+  },
+  input: {
+    backgroundColor: theme.WHITE_COLOR,
+    fontFamily: 'Lato_400Regular',
+    color: theme.PRIMARY_COLOR,
   },
 });
 export default BucketAddModal;
