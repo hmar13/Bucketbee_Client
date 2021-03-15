@@ -21,8 +21,35 @@ import DeleteDialog from './DeleteDialog';
 import theme from '../styles/theme.style';
 import BouncyCheckbox from 'react-native-bouncy-checkbox';
 import { AntDesign } from '@expo/vector-icons';
+import Bucket from '../interfaces/Bucket';
+import Chat from '../interfaces/Chat';
 
-const BucketActionsModal = ({
+interface BucketActionsModalProps {
+  baModalVisible: boolean;
+  setBaModalVisible(val: boolean): void;
+  bucketId: string;
+  bucketTitle: string;
+  setGoBack(val: boolean): void;
+}
+
+interface User {
+  _typename: string;
+  birthday: null | string;
+  createdAt: string;
+  email: string;
+  emojis: string | null;
+  firstName: null | string;
+  friends: User[];
+  id: string;
+  lastName: null | string;
+  location: null | string;
+  profile_pic: null | string;
+  updatedAt: string;
+  username: string;
+  vibe: string;
+}
+
+const BucketActionsModal: React.FC<BucketActionsModalProps> = ({
   baModalVisible,
   setBaModalVisible,
   bucketId,
@@ -31,8 +58,8 @@ const BucketActionsModal = ({
 }) => {
   const [title, setTitle] = useState('');
   const [deleteVisible, setDeleteVisible] = useState(false);
-  const [user, setUser] = useState(null);
-  const [friendList, setFriendList] = useState([]);
+  const [user, setUser] = useState<User | null>(null);
+  const [friendList, setFriendList] = useState<string[] | []>([]);
 
   const [getUserById] = useLazyQuery(GET_USER_BY_ID, {
     onCompleted: (data) => {
@@ -65,12 +92,13 @@ const BucketActionsModal = ({
       const description = 'bucket';
       const input = {
         description,
-        author: user.id,
+        author: user?.id,
         content: bucketTitle,
         photo: bucketId,
       };
-      let currentChats = [];
+      let currentChats: Chat[] = [];
       if (data && data.getChats) currentChats = data.getChats;
+      console.log('CURRENT CHATS ',currentChats)
       friendList.forEach((id) => {
         let existingChat = currentChats.filter((c) => {
           let memberIDS = c.members.map((m) => m.id);
@@ -96,19 +124,19 @@ const BucketActionsModal = ({
     deleteBucket({
       variables: { bucketId },
       update(cache) {
-        const existingBuckets = cache.readQuery({
+        const existingBuckets: {getBuckets:Bucket[]}  | null= cache.readQuery({
           query: GET_BUCKETS,
           variables: {
-            userId: user.id,
+            userId: user && user.id,
           },
         });
-        const newBuckets = existingBuckets.getBuckets.filter(
+        const newBuckets = existingBuckets?.getBuckets.filter(
           (b) => b.id !== bucketId,
         );
         cache.writeQuery({
           query: GET_BUCKETS,
           variables: {
-            userId: user.id,
+            userId: user?.id,
           },
           data: {
             getBuckets: newBuckets,
@@ -125,9 +153,9 @@ const BucketActionsModal = ({
     changeBucketName({
       variables: { bucketId, title },
       update(cache, { data }) {
-        const existingBuckets = cache.readQuery({
+        const existingBuckets: {getBuckets:Bucket[]} | null = cache.readQuery({
           query: GET_BUCKETS,
-          variables: { userId: user.id },
+          variables: { userId: user?.id },
         });
         const newBuckets = existingBuckets?.getBuckets.map((b) => {
           if (b.id === bucketId) b = data?.changeBucketName;
@@ -135,7 +163,7 @@ const BucketActionsModal = ({
         });
         cache.writeQuery({
           query: GET_BUCKETS,
-          variables: { userId: user.id },
+          variables: { userId: user?.id },
           data: {
             getBuckets: newBuckets,
           },
@@ -152,11 +180,11 @@ const BucketActionsModal = ({
     }
   };
 
-  const handleAdd = (id) => {
+  const handleAdd = (id: string) => {
     setFriendList((friends) => [...friends, id]);
   };
 
-  const handleRemove = (id) => {
+  const handleRemove = (id: string) => {
     setFriendList((friends) => friends.filter((f) => f !== id));
   };
 

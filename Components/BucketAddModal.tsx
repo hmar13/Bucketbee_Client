@@ -47,8 +47,6 @@ const BucketAddModal: React.FC<BucketAddModalProps> = ({ userId, modalVisible, s
               userId,
             },
           });
-          console.log('EXISTING ',existingBuckets)
-          console.log('getbuckets ',existingBuckets?.getBuckets)
           let getBuckets: Bucket[];
           if (!existingBuckets) {
             getBuckets = [];
