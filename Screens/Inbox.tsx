@@ -208,9 +208,7 @@ const Inbox: React.FC<InboxProps> = ({ navigation }) => {
               renderItem={({ item }) => {
                 const members = item.members.filter((m) => m.id !== userId);
                 const memberIds = members?.map((m) => m.id);
-
                 if (memberIds[0]) currentChats[memberIds[0]] = item.id;
-                console.log(currentChats)
                 const friend_profile_pic = user.friends.filter(
                   (f) => f.id === memberIds[0],
                 )[0].profile_pic;
