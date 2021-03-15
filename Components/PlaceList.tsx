@@ -59,6 +59,7 @@ const PlaceList: React.FC<PlaceListProps> = ({ places, catId, bucketId }) => {
   };
 
   if (places.length) {
+    console.log('ay')
     return (
       <>
         <FlatList
@@ -80,13 +81,17 @@ const PlaceList: React.FC<PlaceListProps> = ({ places, catId, bucketId }) => {
                   }}
                   activeOpacity={0.6}
                 >
-                  <View style={styles.placeContainer}>
-                    <Image
-                      style={styles.image}
-                      source={{ uri: item.imgArr[0] }}
-                    />
-                    <Text style={styles.placeName}>{item.name}</Text>
-                  </View>
+                  {
+                    item.imgArr?
+                    <View style={styles.placeContainer}>
+                      <Image
+                        style={styles.image}
+                        source={{ uri: item.imgArr[0] }}
+                      />
+                      <Text style={styles.placeName}>{item.name}</Text>
+                    </View>
+                  : null
+                  }
                 </TouchableOpacity>
               </View>
             );
