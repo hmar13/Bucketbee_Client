@@ -17,12 +17,13 @@ import { GET_BUCKETS } from '../Services/Buckets/BucketsQuery';
 import { CREATE_BUCKET } from '../Services/Buckets/BucketsMutation';
 import theme from '../styles/theme.style';
 import Bucket from '../interfaces/Bucket';
+import Place from '../interfaces/Place';
 
 interface BucketAddModalProps {
   userId: string;
   modalVisible: boolean;
   setModalVisible(val: boolean): void;
-  place: null;
+  place: Place | undefined;
 }
 
 const BucketAddModal: React.FC<BucketAddModalProps> = ({

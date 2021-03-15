@@ -116,7 +116,7 @@ const Map: React.FC<PropsMap> = ({ navigation }) => {
       open_now = details.opening_hours.open_now;
       weekday_text = details.opening_hours.weekday_text;
     }
-    let imgArr: string[] | undefined;
+    let imgArr: string[] = [];
     let path;
     let response;
     let promisedArr;
@@ -129,7 +129,6 @@ const Map: React.FC<PropsMap> = ({ navigation }) => {
         return response.url;
       });
       imgArr = await Promise.all(promisedArr);
-      console.log('imgArr', imgArr);
     }
     let review;
     if (reviews && reviews.length) {
