@@ -10,13 +10,13 @@ import { GET_BUCKETS } from '../Services/Buckets/BucketsQuery';
 import { ADD_PLACE } from '../Services/Places/PlacesMutation';
 import { PLACE_ARRAY_FRAGMENT } from '../Services/Places/PlacesFragment';
 import theme from '../styles/theme.style';
-
+import Place from '../interfaces/Place';
 import Category from '../interfaces/Category';
 
 var openModal = false;
 
 interface AddModalProps {
-  place: null;
+  place: Place | undefined;
   isVisible: boolean;
   handleClose(): void;
 }
@@ -25,11 +25,6 @@ const AddModal: React.FC<AddModalProps> = ({ place, isVisible, handleClose }) =>
   const [modalVisible, setModalVisible] = useState(false);
   const [expanded, setExpanded] = useState(-50);
   const [userId, setUserId] = useState<string>('');
-  console.log('here')
-  console.log('place', place)
-  console.log('isVisible', isVisible)
-  console.log('handleClose', handleClose)
-  console.log('userID', userId)
 
   const retrieveUser = async () => {
     try {
