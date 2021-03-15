@@ -19,13 +19,28 @@ import {
 } from 'react-native';
 import { AntDesign } from '@expo/vector-icons';
 import { FontAwesome } from '@expo/vector-icons';
-import Place from '../interfaces/Place';
+
+type Place = {
+  description: string;
+  formatted_address: string;
+  imgArr: string[] | undefined;
+  international_phone_number: number | null;
+  latitude: number;
+  longitude: number;
+  name: string;
+  open_now: null;
+  rating: null;
+  review: null;
+  url: string;
+  user_ratings_total: number | null;
+  weekday_text: any[];
+};
 
 interface PropsPlaceDetail {
-  place: Place;
-  onPress(): (val: boolean) => void;
+  place: Place | undefined;
+  onPress(): void;
   pdVisible: boolean;
-  onAdd(): (val: boolean) => void;
+  onAdd(): void;
 }
 
 const PlaceDetail: React.FC<PropsPlaceDetail> = ({
@@ -42,7 +57,7 @@ const PlaceDetail: React.FC<PropsPlaceDetail> = ({
             <FlatList
               style={styles.imageContainer}
               horizontal={true}
-              data={place.imgArr}
+              data={place ? place.imgArr : null}
               keyExtractor={(item) => item}
               renderItem={({ item }) => {
                 return (
@@ -57,76 +72,88 @@ const PlaceDetail: React.FC<PropsPlaceDetail> = ({
             />
           </View>
           <View style={styles.textContainer}>
-            <Text style={styles.title}>{place.name}</Text>
+            <Text style={styles.title}>{place ? place.name : null}</Text>
             <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-              {place.rating ? (
-                <Text style={{ fontFamily: 'Lato_700Bold', color: '#0d525f' }}>
-                  {place.rating} ({place.user_ratings_total}) &nbsp;&nbsp;
-                  <FontAwesome
-                    name="star"
-                    size={16}
-                    color={theme.SPECIAL_COLOR}
-                  />
-                  &nbsp;&nbsp;
-                </Text>
+              {place ? (
+                place.rating ? (
+                  <Text
+                    style={{ fontFamily: 'Lato_700Bold', color: '#0d525f' }}
+                  >
+                    {place.rating} ({place.user_ratings_total}) &nbsp;&nbsp;
+                    <FontAwesome
+                      name="star"
+                      size={16}
+                      color={theme.SPECIAL_COLOR}
+                    />
+                    &nbsp;&nbsp;
+                  </Text>
+                ) : null
               ) : null}
-              {place.open_now !== undefined ? (
-                place.open_now ? (
-                  <Text
-                    style={{
-                      color: 'green',
-                      fontFamily: 'Lato_400Regular',
-                      paddingRight: 5,
-                    }}
-                  >
-                    Open Now
-                  </Text>
-                ) : (
-                  <Text
-                    style={{
-                      color: 'red',
-                      fontFamily: 'Lato_400Regular',
-                      paddingRight: 5,
-                    }}
-                  >
-                    Closed
-                  </Text>
-                )
+              {place ? (
+                place.open_now !== undefined ? (
+                  place.open_now ? (
+                    <Text
+                      style={{
+                        color: 'green',
+                        fontFamily: 'Lato_400Regular',
+                        paddingRight: 5,
+                      }}
+                    >
+                      Open Now
+                    </Text>
+                  ) : (
+                    <Text
+                      style={{
+                        color: 'red',
+                        fontFamily: 'Lato_400Regular',
+                        paddingRight: 5,
+                      }}
+                    >
+                      Closed
+                    </Text>
+                  )
+                ) : null
               ) : null}
               <Text
                 style={styles.link}
-                onPress={() => Linking.openURL(place.url)}
+                onPress={() => Linking.openURL(place ? place.url : '')}
               >
                 Open in Google Maps
               </Text>
             </View>
             <Text>{''}</Text>
             <Text style={[styles.text, { textTransform: 'capitalize' }]}>
-              {place.description}
+              {place ? place.description : null}
             </Text>
-            <Text style={styles.text}>{place.formatted_address}</Text>
-            <Text style={styles.text}>{place.international_phone_number}</Text>
+            <Text style={styles.text}>
+              {place ? place.formatted_address : null}
+            </Text>
+            <Text style={styles.text}>
+              {place ? place.international_phone_number : null}
+            </Text>
             <Text>{''}</Text>
             <FlatList
-              data={place.weekday_text}
+              data={place ? place.weekday_text : null}
               keyExtractor={(item) => item}
               renderItem={({ item }) => {
                 return <Text style={styles.text}>{item}</Text>;
               }}
             />
-            {place.review ? (
-              <>
-                <Text>{''}</Text>
-                <Text
-                  style={[
-                    styles.text,
-                    { fontFamily: 'Lato_400Regular_Italic' },
-                  ]}
-                >
-                  "{place.review}"
-                </Text>
-                <Text>{''}</Text>
-              </>
+            {place ? (
+              place.review ? (
+                <>
+                  <Text>{''}</Text>
+                  <Text
+                    style={[
+                      styles.text,
+                      { fontFamily: 'Lato_400Regular_Italic' },
+                    ]}
+                  >
+                    "{place.review}"
+                  </Text>
+                  <Text>{''}</Text>
+                </>
+              ) : null
             ) : null}
             <Pressable style={styles.button} onPress={onPress}>
               <AntDesign

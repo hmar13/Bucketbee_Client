@@ -13,7 +13,7 @@ import theme from '../styles/theme.style';
 
 var openModal = false;
 
-const AddModal = ({ place, isVisible, handleClose, onlyAdd }) => {
+const AddModal = ({ place, isVisible, handleClose }) => {
   const [modalVisible, setModalVisible] = useState(false);
   const [expanded, setExpanded] = useState(-50);
   const [userId, setUserId] = useState(null);

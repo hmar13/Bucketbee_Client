@@ -2,7 +2,14 @@
 /* eslint-disable dot-notation */
 const PHOTO_API_KEY = config['REACT_NATIVE_GOOGLE_API_KEY'];
 import React, { useState, useEffect, useCallback } from 'react';
-import { Text, View, StyleSheet, Alert } from 'react-native';
+import {
+  Text,
+  View,
+  StyleSheet,
+  Alert,
+  useWindowDimensions,
+  NavigatorIOS,
+} from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import MyMapView from '../Components/MapView';
 import MapInput from '../Components/MapInput';
@@ -11,10 +18,43 @@ import PlaceDetail from '../Components/PlaceDetail';
 import AddModal from '../Components/AddModal';
 import theme from '../styles/theme.style';
 import config from '../config';
+import Place from '../interfaces/Place';
 
-const Map = ({ navigation }) => {
-  const [reg, setReg] = useState({});
-  const [placePreview, setPlacePreview] = useState({});
+interface PropsMap {
+  navigation: any;
+}
+
+type PositionType = {
+  coords: {
+    accuracy: number;
+    altitude: number;
+    altitudeAccuracy: number;
+    heading: number;
+    latitude: number;
+    longitude: number;
+    speed: number;
+  };
+  mocked: boolean;
+  timestamp: number;
+};
+
+type RegType = {
+  latitude: number;
+  latitudeDelta: number;
+  longitude: number;
+  longitudeDelta: number;
+};
+
+type PhotoObjType = {
+  height: number;
+  html_attributions: String[];
+  photo_reference: string;
+  width: number;
+};
+
+const Map: React.FC<PropsMap> = ({ navigation }) => {
+  const [reg, setReg] = useState<RegType | null>(null);
+  const [placePreview, setPlacePreview] = useState<Place>();
   const [pdVisible, setPdVisible] = useState(false);
   const [AddModalVisible, setAddModalVisible] = useState(false);
   const [openModal, setOpenModal] = useState(false);
@@ -30,21 +70,22 @@ const Map = ({ navigation }) => {
     if (openModal) setAddModalVisible(true);
   }, [openModal]);
 
-  const updateLocation = (location) => {
+  const updateLocation = (location: { lat: number; lng: number }) => {
     const latitude = location.lat;
     const longitude = location.lng;
     setReg({ latitude, longitude, latitudeDelta, longitudeDelta });
   };
 
   const getCurrentLoc = useCallback(async () => {
+    // @ts-ignore: Unreachable code error
     await navigator.geolocation.getCurrentPosition(
-      (position) => {
+      (position: PositionType) => {
         const { latitude, longitude } = position.coords;
         setReg({ latitude, longitude, latitudeDelta, longitudeDelta });
       },
-      (err) => Alert.alert(err),
+      (err: any) => Alert.alert(err),
     );
-  });
+  }, []);
 
   const handlePdModalClose = () => {
     setPdVisible(false);
@@ -75,12 +116,12 @@ const Map = ({ navigation }) => {
       open_now = details.opening_hours.open_now;
       weekday_text = details.opening_hours.weekday_text;
     }
-    let imgArr = [];
+    let imgArr: string[] | undefined;
     let path;
     let response;
     let promisedArr;
     if (details.photos && details.photos.length) {
-      promisedArr = details.photos.map(async (photoObj) => {
+      promisedArr = details.photos.map(async (photoObj: PhotoObjType) => {
         path = photoObj.photo_reference;
         response = await fetch(
           `https://maps.googleapis.com/maps/api/place/photo?maxheight=1200&photoreference=${path}&key=${PHOTO_API_KEY}`,
@@ -88,6 +129,7 @@ const Map = ({ navigation }) => {
         return response.url;
       });
       imgArr = await Promise.all(promisedArr);
+      console.log('imgArr', imgArr);
     }
     let review;
     if (reviews && reviews.length) {
@@ -106,6 +148,8 @@ const Map = ({ navigation }) => {
         description = types[0];
       }
     }
+    //Place, __typename and id are not used. Should be used if passing down to components.
+    // @ts-ignore: Unreachable code error
     setPlacePreview({
       name,
       rating,
@@ -121,11 +165,15 @@ const Map = ({ navigation }) => {
       latitude,
       longitude,
     });
-  });
+  }, []);
 
   return (
     <View style={styles.container}>
-      {reg.latitude ? <MyMapView region={reg} /> : null}
+      {reg ? (
+        reg.latitude ? (
+          <MyMapView region={reg} small={null} />
+        ) : null
+      ) : null}
       <View style={styles.searchResults}>
         <Ionicons
           style={styles.icon}
@@ -145,12 +193,14 @@ const Map = ({ navigation }) => {
         pdVisible={pdVisible}
         onAdd={handlePdModalClose}
       />
-      {placePreview.name ? (
-        <PlacePreview
-          place={placePreview}
-          onPress={() => setPdVisible(true)}
-          onAdd={() => setAddModalVisible(true)}
-        />
+      {placePreview ? (
+        placePreview.name ? (
+          <PlacePreview
+            place={placePreview}
+            onPress={() => setPdVisible(true)}
+            onAdd={() => setAddModalVisible(true)}
+          />
+        ) : null
       ) : null}
       <AddModal
         place={placePreview}
