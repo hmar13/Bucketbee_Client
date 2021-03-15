@@ -5,18 +5,31 @@ import { useQuery, useMutation } from '@apollo/client';
 import Modal from 'react-native-modal';
 import { List } from 'react-native-paper';
 
-import BucketAddModal from '../Components/BucketAddModal';
+import BucketAddModal from './BucketAddModal';
 import { GET_BUCKETS } from '../Services/Buckets/BucketsQuery';
 import { ADD_PLACE } from '../Services/Places/PlacesMutation';
 import { PLACE_ARRAY_FRAGMENT } from '../Services/Places/PlacesFragment';
 import theme from '../styles/theme.style';
 
+import Category from '../interfaces/Category';
+
 var openModal = false;
 
-const AddModal = ({ place, isVisible, handleClose }) => {
+interface AddModalProps {
+  place: null;
+  isVisible: boolean;
+  handleClose(): void;
+}
+
+const AddModal: React.FC<AddModalProps> = ({ place, isVisible, handleClose }) => {
   const [modalVisible, setModalVisible] = useState(false);
   const [expanded, setExpanded] = useState(-50);
-  const [userId, setUserId] = useState(null);
+  const [userId, setUserId] = useState<string>('');
+  console.log('here')
+  console.log('place', place)
+  console.log('isVisible', isVisible)
+  console.log('handleClose', handleClose)
+  console.log('userID', userId)
 
   const retrieveUser = async () => {
     try {
@@ -42,18 +55,18 @@ const AddModal = ({ place, isVisible, handleClose }) => {
 
   const [addPlace] = useMutation(ADD_PLACE);
 
-  const handlePress = (idx) => setExpanded(idx);
+  const handlePress = (idx: number) => setExpanded(idx);
 
   const handleModalChange = () => {
     openModal = true;
     handleClose();
   };
 
-  const handleAdd = (catId) => {
+  const handleAdd = (catId: string) => {
     addPlace({
       variables: { catId: catId, input: place },
       update(cache, { data }) {
-        const category = cache.readFragment({
+        const category: Category | null = cache.readFragment({
           id: `Category:${catId}`, // The value of the to-do item's unique identifier
           fragment: PLACE_ARRAY_FRAGMENT,
         });
@@ -61,7 +74,7 @@ const AddModal = ({ place, isVisible, handleClose }) => {
           id: `Category:${catId}`,
           fragment: PLACE_ARRAY_FRAGMENT,
           data: {
-            places: category.places.concat(data.addPlace),
+            places: category?.places.concat(data.addPlace),
           },
         });
       },
