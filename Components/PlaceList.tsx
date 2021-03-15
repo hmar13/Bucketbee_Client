@@ -59,7 +59,6 @@ const PlaceList: React.FC<PlaceListProps> = ({ places, catId, bucketId }) => {
   };
 
   if (places.length) {
-    console.log('ay')
     return (
       <>
         <FlatList
