@@ -14,9 +14,9 @@ import { FontAwesome } from '@expo/vector-icons';
 import Place from '../interfaces/Place';
 
 interface PropsPlacePreview {
-  place: Place;
-  onPress(): (val: boolean) => void;
-  onAdd(): (val: boolean) => void;
+  place: Place | undefined;
+  onPress(): void;
+  onAdd(): void;
 }
 
 const PlacePreview: React.FC<PropsPlacePreview> = ({
@@ -32,7 +32,7 @@ const PlacePreview: React.FC<PropsPlacePreview> = ({
         <FlatList
           style={styles.imageContainer}
           horizontal={true}
-          data={place.imgArr}
+          data={place ? place.imgArr : null}
           keyExtractor={(item) => item}
           renderItem={({ item }) => {
             return (
@@ -47,37 +47,48 @@ const PlacePreview: React.FC<PropsPlacePreview> = ({
         />
       </View>
       <Pressable style={styles.textContainer} onPress={onPress}>
-        <Text style={styles.title}>{place.name}</Text>
+        <Text style={styles.title}>{place ? place.name : null}</Text>
         <View style={{ flexDirection: 'row', marginTop: 5 }}>
-          {place.rating ? (
-            <Text style={{ fontFamily: 'Lato_700Bold', color: '#0d525f' }}>
-              {place.rating} ({place.user_ratings_total}) &nbsp;&nbsp;
-              <FontAwesome name="star" size={16} color={theme.SPECIAL_COLOR} />
-              &nbsp;&nbsp;
-            </Text>
+          {place ? (
+            place.rating ? (
+              <Text style={{ fontFamily: 'Lato_700Bold', color: '#0d525f' }}>
+                {place.rating} ({place ? place.user_ratings_total : null})
+                &nbsp;&nbsp;
+                <FontAwesome
+                  name="star"
+                  size={16}
+                  color={theme.SPECIAL_COLOR}
+                />
+                &nbsp;&nbsp;
+              </Text>
+            ) : null
           ) : null}
-          {place.open_now !== undefined ? (
-            place.open_now ? (
-              <Text style={{ color: 'green', fontFamily: 'Lato_400Regular' }}>
-                Open Now
-              </Text>
-            ) : (
-              <Text style={{ color: 'red', fontFamily: 'Lato_400Regular' }}>
-                Closed
-              </Text>
-            )
+          {place ? (
+            place.open_now !== undefined ? (
+              place.open_now ? (
+                <Text style={{ color: 'green', fontFamily: 'Lato_400Regular' }}>
+                  Open Now
+                </Text>
+              ) : (
+                <Text style={{ color: 'red', fontFamily: 'Lato_400Regular' }}>
+                  Closed
+                </Text>
+              )
+            ) : null
           ) : null}
         </View>
         <View style={styles.addInfo}>
-          {place.formatted_address ? (
-            <Text style={styles.text}>
-              {place.formatted_address}
-              {place.international_phone_number ? (
-                <Text style={styles.text}>
-                  &nbsp;&nbsp; || &nbsp; {place.international_phone_number}
-                </Text>
-              ) : null}
-            </Text>
+          {place ? (
+            place.formatted_address ? (
+              <Text style={styles.text}>
+                {place.formatted_address}
+                {place.international_phone_number ? (
+                  <Text style={styles.text}>
+                    &nbsp;&nbsp; || &nbsp; {place.international_phone_number}
+                  </Text>
+                ) : null}
+              </Text>
+            ) : null
           ) : null}
         </View>
       </Pressable>

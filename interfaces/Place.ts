@@ -3,7 +3,7 @@ export default interface Place {
   description: string;
   formatted_address: string;
   id: string;
-  imgArr: string[];
+  imgArr: string[] | undefined;
   international_phone_number: number | null;
   latitude: number;
   longitude: number;

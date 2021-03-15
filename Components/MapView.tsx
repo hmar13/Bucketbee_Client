@@ -12,7 +12,7 @@ type regionObject = {
 
 interface PropsMyMapView {
   region: regionObject;
-  small: undefined; //small isn't used anywhere
+  small: boolean | null;
 }
 
 const MyMapView: React.FC<PropsMyMapView> = ({ small, region }) => {
