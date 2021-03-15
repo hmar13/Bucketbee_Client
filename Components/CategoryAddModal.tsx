@@ -16,8 +16,15 @@ import { AntDesign } from '@expo/vector-icons';
 import { ADD_CATEGORY } from '../Services/Categories/CatMutation';
 import { CAT_ARRAY_FRAGMENT } from '../Services/Categories/CatFragment';
 import theme from '../styles/theme.style';
+import Bucket from '../interfaces/Bucket';
 
-const CategoryAddModal = ({ bucketId, modalVisible, setModalVisible }) => {
+interface CategoryAddModalProps {
+  bucketId: string;
+  modalVisible: boolean;
+  setModalVisible(val: boolean): void;
+}
+
+const CategoryAddModal: React.FC<CategoryAddModalProps> = ({ bucketId, modalVisible, setModalVisible }) => {
   const [label, setLabel] = useState('');
 
   const [addCategory] = useMutation(ADD_CATEGORY);
@@ -27,7 +34,7 @@ const CategoryAddModal = ({ bucketId, modalVisible, setModalVisible }) => {
       addCategory({
         variables: { bucketId: bucketId, label: label },
         update(cache, { data }) {
-          const bucket = cache.readFragment({
+          const bucket: Bucket | null = cache.readFragment({
             id: `Bucket:${bucketId}`,
             fragment: CAT_ARRAY_FRAGMENT,
           });
@@ -35,7 +42,7 @@ const CategoryAddModal = ({ bucketId, modalVisible, setModalVisible }) => {
             id: `Bucket:${bucketId}`,
             fragment: CAT_ARRAY_FRAGMENT,
             data: {
-              categories: bucket.categories.concat(data.addCategory),
+              categories: bucket?.categories.concat(data.addCategory),
             },
           });
         },
@@ -132,5 +139,7 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.2,
     shadowRadius: 8,
   },
+  input: {
+  }
 });
 export default CategoryAddModal;
