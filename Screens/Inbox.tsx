@@ -10,6 +10,8 @@ import ChatActionsModal from '../Components/ChatActionsModal';
 import { FAB, Portal, Provider } from 'react-native-paper';
 import theme from '../styles/theme.style';
 
+import Chat from '../interfaces/Chat';
+import Message from '../interfaces/Message';
 import moment from 'moment';
 
 import {
@@ -23,11 +25,32 @@ import {
 } from 'react-native';
 import { Entypo } from '@expo/vector-icons';
 
-const Inbox = ({ navigation }) => {
+interface InboxProps {
+  navigation: any;
+}
+
+interface User {
+  _typename: string;
+  birthday: null | string;
+  createdAt: string;
+  email: string;
+  emojis?: string;
+  firstName: null | string;
+  friends: User[];
+  id: string;
+  lastName: null | string;
+  location: null | string;
+  profile_pic: null | string;
+  updatedAt: string;
+  username: string;
+  vibe: string;
+}
+
+const Inbox: React.FC<InboxProps> = ({ navigation }) => {
   const [openFAB, setOpenFab] = useState(false);
   const [caModalVisible, setCaModalVisible] = useState(false);
   const [currentAction, setCurrentAction] = useState('');
-  const [user, setUser] = useState(null);
+  const [user, setUser] = useState<User | null>(null);
   const [isLoaded, setIsLoaded] = useState(false);
 
   const [getUserById] = useLazyQuery(GET_USER_BY_ID, {
@@ -55,11 +78,13 @@ const Inbox = ({ navigation }) => {
   useEffect(() => {
     retrieveUser();
   }, []);
-
-  const currentChats = {};
+  interface CurrentChats {
+    [key: string]: string | undefined ;
+  }
+  let currentChats: CurrentChats = {};
 
   const [postMessageToChat] = useMutation(POST_MESSAGE_TO_CHAT);
-  let userId;
+  let userId: string;
   if (user) userId = user.id;
 
   const { loading, error, data, subscribeToMore } = useQuery(GET_CHATS, {
@@ -75,7 +100,7 @@ const Inbox = ({ navigation }) => {
       subscribeToMore({
         document: MESSAGE_SENT_SUBSCRIPTION,
         variables: { author: userId, chatId: null },
-        updateQuery: (prev, { subscriptionData }) => {
+        updateQuery: (prev: { getChats: Chat[] }, { subscriptionData }) => {
           if (!subscriptionData.data) return prev;
           const { chatId } = subscriptionData.data.messageSent;
           const existingChats = prev.getChats.map((c) => Object.assign({}, c));
@@ -89,7 +114,7 @@ const Inbox = ({ navigation }) => {
           });
           let newChat = JSON.parse(JSON.stringify(changedChat));
           newChat.messages.push(subscriptionData.data.messageSent);
-          existingChats.splice(index, 1, newChat);
+          if (index) existingChats.splice(index, 1, newChat);
           return Object.assign({}, prev, {
             getChats: existingChats,
           });
@@ -97,11 +122,27 @@ const Inbox = ({ navigation }) => {
       });
     }
   }, [subscribeToMore]);
+  interface Body {
+    value: string;
+    photo: string;
+  }
 
-  const handleSend = (description, body, friendList) => {
-    let input = {};
-    input = { description, author: userId };
-
+  const handleSend = (
+    description: string,
+    body: Body,
+    friendList: string[],
+  ): void => {
+    interface Input {
+      content: Body | string;
+      photo?: string;
+      description: string;
+      author: string;
+    }
+    let input: Input = {
+      description: '',
+      author: userId,
+      content: '',
+    };
     if (
       description === 'location' ||
       description === 'love' ||
@@ -116,7 +157,7 @@ const Inbox = ({ navigation }) => {
     if (input.content) {
       friendList.forEach((id) => {
         if (Object.keys(currentChats).includes(id)) {
-          const chatId = currentChats[id];
+          const chatId: string | undefined = currentChats.id;
           postMessageToChat({
             variables: { chatId, input },
           });
@@ -125,7 +166,11 @@ const Inbox = ({ navigation }) => {
     }
   };
 
-  const handlePostcard = (photo, value, friendList) => {
+  const handlePostcard = (
+    photo: string,
+    value: string,
+    friendList: string[],
+  ) => {
     navigation.navigate('Postcard', {
       photo,
       value,
@@ -134,10 +179,10 @@ const Inbox = ({ navigation }) => {
     });
   };
 
-  let chatsCopy = [];
+  let chatsCopy: Chat[] = [];
   if (chats) {
     chatsCopy = [...chats];
-    chatsCopy.sort((a, b) => new Date(b.updatedAt) - new Date(a.updatedAt));
+    chatsCopy.sort((a, b) => new Date(b.updatedAt).getDate() - new Date(a.updatedAt).getDate());
     setTimeout(() => {
       setIsLoaded(true);
     }, 2000);
@@ -162,15 +207,16 @@ const Inbox = ({ navigation }) => {
               keyExtractor={(item) => item.id}
               renderItem={({ item }) => {
                 const members = item.members.filter((m) => m.id !== userId);
-                const memberIds = members.map((m) => m.id);
-                currentChats[memberIds[0]] = item.id;
+                const memberIds = members?.map((m) => m.id);
 
+                if (memberIds[0]) currentChats[memberIds[0]] = item.id;
+                console.log(currentChats)
                 const friend_profile_pic = user.friends.filter(
                   (f) => f.id === memberIds[0],
                 )[0].profile_pic;
-                let lastMessage = '';
+                let lastMessage: Message | string = '';
                 let noMessage = 'No messages yet';
-                if (item.messages.length) {
+                if (item.messages?.length) {
                   lastMessage = item.messages[item.messages.length - 1];
                   if (lastMessage.description === 'postcard')
                     lastMessage = "Here's a postcard for you:";

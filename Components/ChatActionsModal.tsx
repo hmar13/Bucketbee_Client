@@ -12,10 +12,36 @@ import { Button } from 'react-native-paper';
 import Modal from 'react-native-modal';
 import BouncyCheckbox from 'react-native-bouncy-checkbox';
 
-import ImageUpload from '../Components/ImageUpload';
+import ImageUpload from './ImageUpload';
 import theme from '../styles/theme.style';
 
-const ChatActionsModal = ({
+
+interface ChatActionsModalProps {
+  currentAction: string;
+  caModalVisible: boolean;
+  setCaModalVisible(val: boolean): void;
+  handleSend(description: string, body: any, friendList: string[]): void;
+  handlePostcard(value: string, photo: string, friendList: string[]): void;
+  user: User;
+}
+
+interface User {
+  _typename: string;
+  birthday: null | string;
+  createdAt: string;
+  email: string;
+  emojis?: string;
+  firstName: null | string;
+  friends: User[];
+  id: string;
+  lastName: null | string;
+  location: null | string;
+  profile_pic: null | string;
+  updatedAt: string;
+  username: string;
+  vibe: string;
+}
+const ChatActionsModal: React.FC<ChatActionsModalProps> = ({
   currentAction,
   caModalVisible,
   setCaModalVisible,
@@ -25,8 +51,8 @@ const ChatActionsModal = ({
 }) => {
   const [textContent, setTextContent] = useState('');
   const [value, setValue] = useState('');
-  const [friendList, setFriendList] = useState([]);
-  const [photo, setPhoto] = useState(null);
+  const [friendList, setFriendList] = useState<string[]>([]);
+  const [photo, setPhoto] = useState<string | null>(null);
 
   useEffect(() => {
     currentAction === 'location' && setTextContent("Hey, I'm in currently in");
@@ -35,11 +61,11 @@ const ChatActionsModal = ({
     currentAction === 'postcard' && setTextContent('');
   }, [caModalVisible]);
 
-  const handleAdd = (id) => {
+  const handleAdd = (id: string) => {
     setFriendList((friends) => [...friends, id]);
   };
 
-  const handleRemove = (id) => {
+  const handleRemove = (id: string) => {
     setFriendList((friends) => friends.filter((f) => f !== id));
   };
 
@@ -49,6 +75,7 @@ const ChatActionsModal = ({
       if (currentAction === 'location' || 'call') {
         body = textContent + ' ' + value;
       }
+      console.log('body', body)
       handleSend(currentAction, body, friendList);
       setFriendList([]);
       setValue('');
