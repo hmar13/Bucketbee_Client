@@ -54,7 +54,6 @@ const BucketAddModal: React.FC<BucketAddModalProps> = ({
               userId,
             },
           });
-
           let getBuckets: Bucket[];
           if (!existingBuckets) {
             getBuckets = [];
