@@ -17,7 +17,11 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 import { Input } from 'react-native-elements';
 import { useQuery, useMutation } from '@apollo/client';
 
-const Register = ({ navigation }) => {
+interface PropsRegister {
+  navigation: any;
+}
+
+const Register: React.FC<PropsRegister> = ({ navigation }) => {
   const [name, setName] = useState('');
   const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
@@ -80,7 +84,7 @@ const Register = ({ navigation }) => {
   };
 
   useEffect(() => {
-    let timer;
+    let timer: ReturnType<typeof setTimeout>;
     if (wait) {
       timer = setTimeout(handleRegister, 1000);
     }
