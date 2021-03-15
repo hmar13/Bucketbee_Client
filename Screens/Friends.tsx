@@ -15,10 +15,18 @@ import { Button } from 'react-native-paper';
 import BouncyCheckbox from 'react-native-bouncy-checkbox';
 import { Ionicons } from '@expo/vector-icons';
 import { GET_CHATS } from '../Services/Chats/ChatsQuery';
+import getChats from '../interfaces/GetChats';
 
-const Friends = ({ navigation, route }) => {
+interface PropsFriends {
+  navigation: any;
+  route: any;
+}
+
+const Friends: React.FC<PropsFriends> = ({ navigation, route }) => {
   const { user } = route.params;
-  const [friendList, setFriendList] = useState([]);
+  const [friendList, setFriendList] = useState<
+    { id: string; firstName: string }[]
+  >([]);
 
   const [createChat] = useMutation(CREATE_CHAT, {
     onCompleted(newChat) {
@@ -29,21 +37,25 @@ const Friends = ({ navigation, route }) => {
     },
   });
 
-  const handleAdd = (id) => {
+  const handleAdd = (id: { id: string; firstName: string }) => {
     setFriendList((friends) => [...friends, id]);
   };
 
-  const handleRemove = (id) => {
+  const handleRemove = (id: string) => {
     setFriendList((friends) => friends.filter((f) => f.id !== id));
   };
 
   const handleSubmit = () => {
-    let input = {};
+    let input = {
+      name: '',
+      members: [''],
+    };
     if (friendList.length === 1) {
       input.name = friendList[0].firstName;
     }
-    const friendIDs = friendList.map((f) => f.id);
-    const userId = user.id;
+    const friendIDs: string[] = friendList.map((f) => f.id);
+    const userId: string = user.id;
+
     input.members = [userId, ...friendIDs];
 
     createChat({
@@ -53,6 +65,8 @@ const Friends = ({ navigation, route }) => {
           query: GET_CHATS,
           variables: { userId },
         });
+        // Created a getChats interface to use here when Friends.tsx is implemented.
+        // @ts-ignore: Unreachable code error
         const newChats = [...existingChats?.getChats, data?.createChat];
         cache.writeQuery({
           query: GET_CHATS,

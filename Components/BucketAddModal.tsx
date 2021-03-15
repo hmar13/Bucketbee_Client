@@ -25,7 +25,12 @@ interface BucketAddModalProps {
   place: null;
 }
 
-const BucketAddModal: React.FC<BucketAddModalProps> = ({ userId, modalVisible, setModalVisible, place }) => {
+const BucketAddModal: React.FC<BucketAddModalProps> = ({
+  userId,
+  modalVisible,
+  setModalVisible,
+  place,
+}) => {
   const [title, setTitle] = useState('');
   const [category, setCategory] = useState('');
   const [notes, setNotes] = useState('');
@@ -41,12 +46,15 @@ const BucketAddModal: React.FC<BucketAddModalProps> = ({ userId, modalVisible, s
 
         update(cache, { data }) {
           const newBucket: Bucket = data?.createBucket;
-          const existingBuckets: {getBuckets:Bucket[]} | null = cache.readQuery({
+          const existingBuckets: {
+            getBuckets: Bucket[];
+          } | null = cache.readQuery({
             query: GET_BUCKETS,
             variables: {
               userId,
             },
           });
+
           let getBuckets: Bucket[];
           if (!existingBuckets) {
             getBuckets = [];
