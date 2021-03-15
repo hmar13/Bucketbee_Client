@@ -21,7 +21,11 @@ import { Input } from 'react-native-elements';
 import { useQuery, useMutation } from '@apollo/client';
 import { AuthContext } from '../Operations/Store';
 
-const Login = ({ navigation }) => {
+interface PropsLogin {
+  navigation: any;
+}
+
+const Login: React.FC<PropsLogin> = ({ navigation }) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [wait, setWait] = useState(false);
@@ -67,7 +71,7 @@ const Login = ({ navigation }) => {
   };
 
   useEffect(() => {
-    let timer;
+    let timer: ReturnType<typeof setTimeout>;
     if (wait) {
       timer = setTimeout(handleLogin, 1000);
     }
