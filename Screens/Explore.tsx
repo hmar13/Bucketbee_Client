@@ -54,7 +54,7 @@ const Explore: React.FC<PropsExplore> = ({ navigation }) => {
   const loadImages = async () => {
     let res;
     let vibe;
-    if (user) {
+    if (user && user.vibe) {
       vibe = user.vibe.toLowerCase();
     }
 
@@ -90,7 +90,10 @@ const Explore: React.FC<PropsExplore> = ({ navigation }) => {
 
   if (user && isLoaded) {
     let icon;
-    let vibe = user.vibe.toLowerCase();
+    let vibe;
+    if (user && user.vibe) {
+      vibe = user.vibe.toLowerCase();
+    }
 
     if (!vibe || vibe === 'mountains') icon = require(`../assets/mountain.png`);
     else if (vibe === 'city') icon = require(`../assets/city.png`);

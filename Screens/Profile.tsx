@@ -6,6 +6,7 @@ import {
   Image,
   SafeAreaView,
   Platform,
+  Alert,
 } from 'react-native';
 import { uploadToCloud } from '../Operations/Upload';
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -21,16 +22,21 @@ import { FAB, Portal, Provider } from 'react-native-paper';
 import theme from '../styles/theme.style';
 import { Ionicons } from '@expo/vector-icons';
 import moment from 'moment';
+import User from '../interfaces/User';
 
-const Profile = ({ navigation }) => {
+interface PropsProfile {
+  navigation: any;
+}
+
+const Profile: React.FC<PropsProfile> = ({ navigation }) => {
   const [openFAB, setOpenFab] = useState(false);
-  const [user, setUser] = useState(null);
+  const [user, setUser] = useState<null | User>(null);
   const [isLoaded, setIsLoaded] = useState(false);
   const [faModalVisible, setFaModalVisible] = useState(false);
 
   const [addProfilePicToUser] = useMutation(ADD_PROFILE_PIC_TO_USER, {
     onCompleted(userData) {
-      const updateUserState = async (data) => {
+      const updateUserState = async (data: { addProfilePicToUser: User }) => {
         if (data.addProfilePicToUser) {
           setUser((oldUser) => {
             return {
@@ -50,21 +56,34 @@ const Profile = ({ navigation }) => {
     onCompleted(data) {
       if (data && data.getUserByUsername) {
         const friendId = data.getUserByUsername.id;
-        const userId = user.id;
+        let userId: string | undefined;
+        if (user) {
+          userId = user.id;
+        }
         addFriendToUser({
           variables: { userId, friendId },
           update(cache, { data }) {
-            const existingUser = cache.readQuery({
+            const existingUser: {
+              [getUserById: string]: User;
+            } | null = cache.readQuery({
               query: GET_USER_BY_ID,
               variables: { userId },
             });
-            const newFriends = existingUser.getUserById.friends.push(
-              data?.addFriendToUser[1],
-            );
-            const newUser = {
-              ...existingUser.getUserById,
-              friends: newFriends,
-            };
+
+            let newFriends;
+            if (existingUser && existingUser.getUserById.friends) {
+              newFriends = existingUser.getUserById.friends.push(
+                data?.addFriendToUser[1],
+              );
+            }
+
+            let newUser;
+            if (existingUser) {
+              newUser = {
+                ...existingUser.getUserById,
+                friends: newFriends,
+              };
+            }
             cache.writeQuery({
               query: GET_USER_BY_ID,
               variables: { userId },
@@ -82,7 +101,10 @@ const Profile = ({ navigation }) => {
       const updateUserState = async () => {
         const newFriend = data.addFriendToUser[1];
         const currentUser = await AsyncStorage.getItem('@userData');
-        const userCopy = { ...JSON.parse(currentUser) };
+        let userCopy;
+        if (currentUser) {
+          userCopy = { ...JSON.parse(currentUser) };
+        }
         const newFriends = userCopy.friends.push(newFriend);
         await AsyncStorage.setItem('@userData', {
           ...userCopy,
@@ -121,7 +143,9 @@ const Profile = ({ navigation }) => {
           status,
         } = await ImagePicker.requestMediaLibraryPermissionsAsync();
         if (status !== 'granted') {
-          alert('Sorry, we need camera roll permissions to make this work!');
+          Alert.alert(
+            'Sorry, we need camera roll permissions to make this work!',
+          );
         } else {
           (async () => {
             let result = await ImagePicker.launchImageLibraryAsync({
@@ -139,13 +163,15 @@ const Profile = ({ navigation }) => {
     })();
   };
 
-  const updateUserState = (cloudURL) => {
-    addProfilePicToUser({
-      variables: { userId: user.id, profile_pic: cloudURL },
-    });
+  const updateUserState = (cloudURL: string) => {
+    if (user) {
+      addProfilePicToUser({
+        variables: { userId: user.id, profile_pic: cloudURL },
+      });
+    }
   };
 
-  const handleAddFriend = (username) => {
+  const handleAddFriend = (username: string) => {
     getUserByUsername({ variables: { username } });
     setFaModalVisible(false);
   };
@@ -192,6 +218,8 @@ const Profile = ({ navigation }) => {
         </View>
         <Provider>
           <Portal>
+            {/* https://github.com/callstack/react-native-paper/issues/1971 */}
+            {/* @ts-ignore: Unreachable code error */}
             <FAB.Group
               open={openFAB}
               color={theme.PRIMARY_COLOR}
