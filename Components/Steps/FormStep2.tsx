@@ -62,13 +62,16 @@ const FormStep2: React.FC<Props> = ({ setCount, setVibe }) => {
     setRadioButtons(radioButtonsArray);
   };
 
-  const handleSubmit = () => {
+  const handleSubmit = (radioButtons: RadioButtonProps[]) => {
     const selected = radioButtons.filter((b) => b.selected === true);
     if (selected[0].label) {
       setVibe(selected[0].label);
     }
+
     setCount((val: number) => val + 1);
   };
+
+
 
   return (
     <View style={styles.container}>
@@ -82,7 +85,7 @@ const FormStep2: React.FC<Props> = ({ setCount, setVibe }) => {
         <Button
           style={styles.button}
           labelStyle={{ color: theme.PRIMARY_COLOR }}
-          onPress={handleSubmit}
+          onPress={() => handleSubmit(radioButtons)}
         >
           NEXT
         </Button>
