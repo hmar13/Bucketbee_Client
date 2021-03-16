@@ -1,27 +1,34 @@
 import React from 'react';
+import { TextInput } from 'react-native';
 import renderer from 'react-test-renderer';
-import BucketCard from '../Components/BucketCard';
+import { shallow, mount, render } from 'enzyme';
+import FormStep1 from '../Components/Steps/FormStep1';
 
-describe('<Login />', () => {
-  const onPress = jest.fn()
-  const bucket = {
-    __typename: 'Bucket',
-    categories: [{
-      __typename: 'Category',
-      id: '604ca4e87f7d89153b39d99f',
-      label: "Hello",
-      places: [],
-    }],
-    date_created: '2021-03-13T11:41:28.273Z',
-    id: "604ca4e87f7d89153b39d9a0",
-    notes: "Hello",
-    title: "Hello",
-  }
+describe('<FormStep1 />', () => {
 
-  test('Renders correctly', () => {
-    const tree = renderer.create(<BucketCard onPress={onPress} bucket={bucket} />).toJSON();
-    console.log(tree)
-    // expect(tree).toMatchSnapshot();
-    expect(tree.children.length).toBe(1);
+  test('Should render the page without crashing', () => {
+    const tree = renderer.create(<FormStep1 />).toJSON(); //Testing Static Data
+    expect(tree).toBeTruthy();
+  })
+
+  it('Should render the Title Text Element', () => {
+    const wrapper = shallow(<FormStep1 />);
+    expect(wrapper.find('Text')).toHaveLength(1)
   });
+
+  it('Should call setCount', () => {
+    const setLocation = jest.fn();
+    const wrapper = shallow(<FormStep1 setLocation={setLocation} />)
+
+    wrapper.find(TextInput).simulate('changeText', 'Malaysia');
+    expect(setLocation).toHaveBeenCalled();
+    expect(setLocation).toHaveBeenCalledWith('Malaysia');
+  })
+
+  // it('Should change state of location', () => {
+  //   const instanceOf = renderer.create(<FormStep1 />).getInstance();
+  //   instanceOf.onChangeText('Malaysia');
+  //   expect(instanceOf.location).toEqual('Malaysia');
+  // })
+
 });
