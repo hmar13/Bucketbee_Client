@@ -75,6 +75,7 @@
   "devDependencies": {
     "@babel/core": "~7.9.0",
     "@react-native-community/eslint-config": "^2.0.0",
+    "@types/expo__vector-icons": "^9.0.1",
     "@types/jest": "^26.0.20",
     "@types/react": "^17.0.3",
     "@types/react-native": "^0.63.51",
