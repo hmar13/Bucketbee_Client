@@ -83,7 +83,7 @@ const Buckets: React.FC<BucketsProps> = ({ navigation }) => {
           userId={userId}
           modalVisible={modalVisible}
           setModalVisible={setModalVisible}
-          place={null}
+          place={undefined}
         />
         <View style={styles.addBtn}>
           <FAB
