@@ -6,7 +6,8 @@
     "android": "expo start --android",
     "ios": "expo start --ios",
     "web": "expo start --web",
-    "eject": "expo eject"
+    "eject": "expo eject",
+    "test": "jest"
   },
   "dependencies": {
     "@apollo/client": "^3.3.11",
@@ -77,9 +78,24 @@
     "@types/react": "^17.0.3",
     "@types/react-native": "^0.63.51",
     "@types/react-native-dialog": "^5.6.3",
-    "@types/react-test-renderer": "^17.0.1",
     "eslint": "^7.20.0",
+    "jest-expo": "^40.0.2",
     "typescript": "^4.2.3"
   },
-  "private": true
+  "private": true,
+  "jest" : {
+    "preset": "jest-expo",
+    "transformIgnorePatterns": [
+      "node_modules/(?!(jest-)?react-native|react-clone-referenced-element|@react-native-community|expo(nent)?|@expo(nent)?/.*|react-navigation|@react-navigation/.*|@unimodules/.*|unimodules|sentry-expo|native-base|@sentry/.*)"
+    ],
+    "moduleFileExtensions": [
+      "tsx",
+      "ts",
+      "js"
+    ],
+    "automock": false,
+    "setupFiles": [
+      "./__test__/global-mock-fetch.js"
+    ]
+  }
 }
