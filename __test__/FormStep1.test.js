@@ -6,6 +6,12 @@ import { shallow } from 'enzyme';
 import FormStep1 from '../Components/Steps/FormStep1';
 
 describe('<FormStep1 />', () => {
+  const setCount = jest.fn();
+  const setLocation = jest.fn();
+  const wrapper = shallow(<FormStep1
+    setCount={setCount}
+    setLocation={setLocation}
+    />)
 
   test('Should render the page without crashing', () => {
     const tree = renderer.create(<FormStep1 />).toJSON(); //Testing Static Data
@@ -13,14 +19,10 @@ describe('<FormStep1 />', () => {
   })
 
   it('Should render the Title Text Element', () => {
-    const wrapper = shallow(<FormStep1 />);
     expect(wrapper.find('Text')).toHaveLength(1)
   });
 
   it('Should call setLocation', () => {
-    const setLocation = jest.fn();
-    const wrapper = shallow(<FormStep1 setLocation={setLocation} />)
-
     wrapper.find(TextInput).simulate('changeText', 'Malaysia');
 
     expect(setLocation).toHaveBeenCalled();
@@ -28,11 +30,6 @@ describe('<FormStep1 />', () => {
   })
 
   it('Should press button and call setCount', () => {
-    const setCount = jest.fn();
-    const setLocation = jest.fn();
-
-    const wrapper = shallow(<FormStep1 setCount={setCount} setLocation={setLocation} />)
-
     wrapper.find(TextInput).simulate('changeText', 'Malaysia');
     wrapper.find(Button).simulate('press');
 
