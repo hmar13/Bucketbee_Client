@@ -7,7 +7,7 @@ import {
   TouchableHighlight
 } from 'react-native';
 import moment from 'moment';
-import Place from '../interfaces/Place';
+
 import Bucket from '../interfaces/Bucket';
 
 
@@ -25,7 +25,7 @@ const BucketCard: React.FC<BucketCardProps> = ({ bucket, onPress }) => {
     >
       <View style={styles.outercard}>
         <View style={styles.card}>
-          <Text style={styles.text}>{bucket.title}</Text>
+          <Text style={styles.text} >{bucket.title}</Text>
           <Text style={styles.subtext}>
             {moment(bucket.date_created).format('MMM Do, YYYY')}
           </Text>

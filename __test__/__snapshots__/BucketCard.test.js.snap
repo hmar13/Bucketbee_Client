@@ -1,0 +1,75 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<BucketCard> Renders correctly 1`] = `
+<View
+  accessible={true}
+  focusable={true}
+  onClick={[Function]}
+  onResponderGrant={[Function]}
+  onResponderMove={[Function]}
+  onResponderRelease={[Function]}
+  onResponderTerminate={[Function]}
+  onResponderTerminationRequest={[Function]}
+  onStartShouldSetResponder={[Function]}
+  style={
+    Object {
+      "borderRadius": 25,
+      "marginVertical": 18,
+    }
+  }
+>
+  <View
+    style={
+      Object {
+        "backgroundColor": "#9affdc",
+        "borderRadius": 25,
+        "height": 202,
+      }
+    }
+  >
+    <View
+      style={
+        Object {
+          "backgroundColor": "#fffef8",
+          "borderRadius": 25,
+          "height": 200,
+          "justifyContent": "center",
+          "marginVertical": 5,
+          "padding": 20,
+          "shadowColor": "#000",
+          "shadowOffset": Object {
+            "height": 1,
+            "width": 0,
+          },
+          "shadowOpacity": 0.3,
+          "shadowRadius": 10,
+          "width": "100%",
+        }
+      }
+    >
+      <Text
+        style={
+          Object {
+            "color": "#0d525f",
+            "fontFamily": "Raleway_600SemiBold",
+            "fontSize": 30,
+            "paddingVertical": 5,
+          }
+        }
+      >
+        Hello
+      </Text>
+      <Text
+        style={
+          Object {
+            "color": "#0d525f",
+            "fontFamily": "Poppins_300Light",
+          }
+        }
+      >
+        Mar 13th, 2021
+      </Text>
+    </View>
+  </View>
+</View>
+`;

@@ -63,7 +63,7 @@ const userB = {
 }
 
 const place = {
-  __typename: string,
+  __typename: 'Place',
   description: 'locality, political',
   formatted_address: 'London, UK',
   id: '',
