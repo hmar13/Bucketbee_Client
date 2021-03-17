@@ -12,12 +12,18 @@ import { AntDesign } from '@expo/vector-icons';
 
 import theme from '../styles/theme.style';
 
-const FriendAddModal = ({
+interface FriendAddModalProps {
+  faModalVisible: boolean;
+  setFaModalVisible(val: boolean): void;
+  handleAddFriend(val: string): void;
+}
+
+const FriendAddModal: React.FC<FriendAddModalProps> = ({
   faModalVisible,
   setFaModalVisible,
   handleAddFriend,
 }) => {
-  const [username, setUsername] = useState('');
+  const [username, setUsername] = useState<string>('');
 
   return (
     <Modal
@@ -48,7 +54,6 @@ const FriendAddModal = ({
                 primary: theme.PRIMARY_COLOR_LITE,
               },
             }}
-            style={styles.input}
             mode="outlined"
             label="Friend username"
             value={username}
