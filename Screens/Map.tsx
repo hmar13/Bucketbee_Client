@@ -54,7 +54,7 @@ type PhotoObjType = {
 
 const Map: React.FC<PropsMap> = ({ navigation }) => {
   const [reg, setReg] = useState<RegType | null>(null);
-  const [placePreview, setPlacePreview] = useState<Place>();
+  const [placePreview, setPlacePreview] = useState<Place | undefined>();
   const [pdVisible, setPdVisible] = useState(false);
   const [AddModalVisible, setAddModalVisible] = useState(false);
   const [openModal, setOpenModal] = useState(false);
@@ -147,8 +147,7 @@ const Map: React.FC<PropsMap> = ({ navigation }) => {
         description = types[0];
       }
     }
-    //Place, __typename and id are not used. Should be used if passing down to components.
-    // @ts-ignore: Unreachable code error
+
     setPlacePreview({
       name,
       rating,

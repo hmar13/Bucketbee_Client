@@ -1,13 +1,17 @@
-import React from 'react';
+import React, { Dispatch, SetStateAction } from 'react';
 import { View, Text, StyleSheet, TextInput } from 'react-native';
 import * as Animatable from 'react-native-animatable';
 import { Button } from 'react-native-paper';
 import theme from '../../styles/theme.style';
 
+type SetCountType = Dispatch<SetStateAction<number>>
+type SetEmojiType = Dispatch<SetStateAction<string | undefined>>
+
+
 interface Props {
-  setEmojis(val: string): void;
-  emojis: string;
-  handleSubmit: () => void;
+  setEmojis: SetEmojiType;
+  emojis: string | undefined;
+  handleSubmit(): void;
 }
 
 const FormStep3: React.FC<Props> = ({ emojis, setEmojis, handleSubmit }) => {
