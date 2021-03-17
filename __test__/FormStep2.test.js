@@ -1,4 +1,5 @@
 import React from 'react';
+import renderer from 'react-test-renderer';
 import { Button } from 'react-native-paper';
 import RadioGroup from 'react-native-radio-buttons-group';
 import { shallow } from 'enzyme';
@@ -13,6 +14,11 @@ describe('<FormStep2 />', () => {
     setCount={setCount}
     setVibe={setVibe}
   />);
+
+  test('Renders correctly', () => {
+    const tree = renderer.create(<FormStep2 />).toJSON();
+    expect(tree).toMatchSnapshot();
+  });
 
   test('Should render the Text Element', () => {
     expect(wrapper.find('Text').at(0).props().children).toEqual('Beach / mountain / city?')
