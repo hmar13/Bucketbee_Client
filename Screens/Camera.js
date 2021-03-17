@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Ionicons } from '@expo/vector-icons';
 
-import ImagePreview from '../Components/ImagePreview';
+import ImagePreview from '../Components/ImagePreview.js';
 import theme from '../styles/theme.style';
 
 import { Camera } from 'expo-camera';

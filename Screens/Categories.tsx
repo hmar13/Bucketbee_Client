@@ -155,7 +155,6 @@ const Categories: React.FC<CategoriesProps> = ({ route, navigation }) => {
           deleteVisible={deleteVisible}
           setDeleteVisible={setDeleteVisible}
           handleDelete={handleDelete}
-          typeOf="category"
         />
         <BucketActionsModal
           baModalVisible={baModalVisible}

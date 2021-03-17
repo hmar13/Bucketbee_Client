@@ -5,8 +5,8 @@ import Dialog from 'react-native-dialog';
 import { View } from 'react-native';
 
 interface AcceptBucketDialogProps {
-  setAcceptDialogVisible(val: boolean): void;
   acceptDialogVisible: boolean;
+  setAcceptDialogVisible(val: boolean): void;
   handleBucketAdd(): void;
 }
 
