@@ -3,12 +3,9 @@
 const PHOTO_API_KEY = config['REACT_NATIVE_GOOGLE_API_KEY'];
 import React, { useState, useEffect, useCallback } from 'react';
 import {
-  Text,
   View,
   StyleSheet,
   Alert,
-  useWindowDimensions,
-  NavigatorIOS,
 } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import MyMapView from '../Components/MapView';
@@ -16,34 +13,14 @@ import MapInput from '../Components/MapInput';
 import PlacePreview from '../Components/PlacePreview';
 import PlaceDetail from '../Components/PlaceDetail';
 import AddModal from '../Components/AddModal';
-import theme from '../styles/theme.style';
 import config from '../config';
 import Place from '../interfaces/Place';
+import Position from '../interfaces/Position';
+import Region from '../interfaces/Region';
 
 interface PropsMap {
   navigation: any;
 }
-
-type PositionType = {
-  coords: {
-    accuracy: number;
-    altitude: number;
-    altitudeAccuracy: number;
-    heading: number;
-    latitude: number;
-    longitude: number;
-    speed: number;
-  };
-  mocked: boolean;
-  timestamp: number;
-};
-
-type RegType = {
-  latitude: number;
-  latitudeDelta: number;
-  longitude: number;
-  longitudeDelta: number;
-};
 
 type PhotoObjType = {
   height: number;
@@ -53,7 +30,7 @@ type PhotoObjType = {
 };
 
 const Map: React.FC<PropsMap> = ({ navigation }) => {
-  const [reg, setReg] = useState<RegType | null>(null);
+  const [reg, setReg] = useState<Region | null>(null);
   const [placePreview, setPlacePreview] = useState<Place | undefined>();
   const [pdVisible, setPdVisible] = useState(false);
   const [AddModalVisible, setAddModalVisible] = useState(false);
@@ -79,7 +56,7 @@ const Map: React.FC<PropsMap> = ({ navigation }) => {
   const getCurrentLoc = useCallback(async () => {
     // @ts-ignore: Unreachable code error
     await navigator.geolocation.getCurrentPosition(
-      (position: PositionType) => {
+      (position: Position) => {
         const { latitude, longitude } = position.coords;
         setReg({ latitude, longitude, latitudeDelta, longitudeDelta });
       },
