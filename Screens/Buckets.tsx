@@ -14,7 +14,6 @@ interface BucketsProps {
   navigation: any
 }
 
-
 const Buckets: React.FC<BucketsProps> = ({ navigation }) => {
   const [modalVisible, setModalVisible] = useState(false);
   const [userId, setUserId] = useState<string | null>(null);

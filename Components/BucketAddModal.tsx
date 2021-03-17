@@ -23,7 +23,7 @@ interface BucketAddModalProps {
   userId: string;
   modalVisible: boolean;
   setModalVisible(val: boolean): void;
-  place: Place;
+  place?: Place;
 }
 
 const BucketAddModal: React.FC<BucketAddModalProps> = ({
