@@ -3,6 +3,7 @@ import { StyleSheet, View } from 'react-native';
 import LottieView from 'lottie-react-native';
 
 export default class DotLoading extends React.Component {
+  animation: any
   componentDidMount() {
     this.animation.play();
   }
