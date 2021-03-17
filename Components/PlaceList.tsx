@@ -100,7 +100,6 @@ const PlaceList: React.FC<PlaceListProps> = ({ places, catId, bucketId }) => {
           deleteVisible={deleteVisible}
           setDeleteVisible={setDeleteVisible}
           handleDelete={handleDelete}
-          typeOf="place"
         />
       </>
     );

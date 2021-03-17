@@ -8,7 +8,7 @@ import {
   TextInput,
 } from 'react-native';
 import { Button } from 'react-native-paper';
-import MapView from '../Components/MapView';
+import MapView from './MapView';
 import theme from '../styles/theme.style';
 
 const CreatePlace = ({ setCMVisible, handleModalChange }) => {
