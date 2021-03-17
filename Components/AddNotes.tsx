@@ -18,7 +18,7 @@ import Place from '../interfaces/Place';
 import Category from '../interfaces/Category';
 
 interface AddNotesProps {
-  place: any;
+  place: Place;
   noteModalVisible: boolean;
   setNoteModalVisible(val: boolean): void;
 }
