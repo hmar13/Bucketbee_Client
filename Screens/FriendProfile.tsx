@@ -4,7 +4,11 @@ import LoadingAnimation from '../Components/LoadingAnimation';
 import theme from '../styles/theme.style';
 import moment from 'moment';
 
-const FriendProfile = ({ route }) => {
+interface FriendProfileProps {
+  route: any;
+}
+
+const FriendProfile: React.FC<FriendProfileProps> = ({ route }) => {
   const { friendUser } = route.params;
 
   if (friendUser) {
