@@ -23,6 +23,7 @@ import BouncyCheckbox from 'react-native-bouncy-checkbox';
 import { AntDesign } from '@expo/vector-icons';
 import Bucket from '../interfaces/Bucket';
 import Chat from '../interfaces/Chat';
+// import User from '../interfaces/User';
 
 interface BucketActionsModalProps {
   baModalVisible: boolean;
@@ -59,7 +60,7 @@ const BucketActionsModal: React.FC<BucketActionsModalProps> = ({
   const [title, setTitle] = useState('');
   const [deleteVisible, setDeleteVisible] = useState(false);
   const [user, setUser] = useState<User | null>(null);
-  const [friendList, setFriendList] = useState<string[] | []>([]);
+  const [friendList, setFriendList] = useState<string[]>([]);
 
   const [getUserById] = useLazyQuery(GET_USER_BY_ID, {
     onCompleted: (data) => {

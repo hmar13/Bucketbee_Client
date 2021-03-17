@@ -1,10 +1,7 @@
 /* eslint-disable react-native/no-inline-styles */
-import React, { useState } from 'react';
-import { GestureResponderEvent } from 'react-native';
+import React from 'react';
+import 'react-native';
 import theme from '../styles/theme.style';
-import { FAB, Portal, Provider } from 'react-native-paper';
-import Icon from 'react-native-vector-icons/Ionicons';
-import DotLoading from '../Components/dotLoading';
 
 import {
   Text,
@@ -14,30 +11,14 @@ import {
   Pressable,
   Image,
   Linking,
-  ScrollView,
   Modal,
 } from 'react-native';
 import { AntDesign } from '@expo/vector-icons';
 import { FontAwesome } from '@expo/vector-icons';
-
-type Place = {
-  description: string;
-  formatted_address: string;
-  imgArr: string[] | undefined;
-  international_phone_number: number | null;
-  latitude: number;
-  longitude: number;
-  name: string;
-  open_now: null;
-  rating: null;
-  review: null;
-  url: string;
-  user_ratings_total: number | null;
-  weekday_text: any[];
-};
+import Place from '../interfaces/Place';
 
 interface PropsPlaceDetail {
-  place: Place | undefined;
+  place: Place;
   onPress(): void;
   pdVisible: boolean;
   onAdd(): void;
@@ -47,7 +28,6 @@ const PlaceDetail: React.FC<PropsPlaceDetail> = ({
   place,
   onPress,
   pdVisible,
-  onAdd,
 }) => {
   return (
     <Modal transparent={true} visible={pdVisible} animationType="slide">
@@ -162,39 +142,6 @@ const PlaceDetail: React.FC<PropsPlaceDetail> = ({
                 color={theme.PRIMARY_COLOR}
               />
             </Pressable>
-            {/* <Provider>
-              <Portal>
-                <FAB.Group
-                  open={openFAB}
-                  style={{ paddingTop: 40 }}
-                  fabStyle={{
-                    backgroundColor: theme.PRIMARY_COLOR,
-                    shadowRadius: 0,
-                    shadowOffset: { width: 0, height: 0 },
-                  }}
-                  color={theme.WHITE_COLOR}
-                  icon={openFAB ? 'close' : 'plus'}
-                  actions={[
-                    {
-                      color: theme.PRIMARY_COLOR,
-                      icon: 'send-outline',
-                      small: false,
-                      onPress: () => {},
-                    },
-                    {
-                      color: theme.PRIMARY_COLOR,
-                      icon: 'heart-outline',
-                      onPress: onAdd,
-                      small: false,
-                    },
-                  ]}
-                  onStateChange={() => {}}
-                  onPress={() => {
-                    openFAB ? setOpenFab(false) : setOpenFab(true);
-                  }}
-                />
-              </Portal>
-            </Provider> */}
           </View>
         </View>
       </View>
