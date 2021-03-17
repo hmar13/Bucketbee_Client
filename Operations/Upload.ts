@@ -1,7 +1,11 @@
 const cloudName = 'pmelacodes';
 const CLOUDINARY_URL = `https://api.cloudinary.com/v1_1/${cloudName}/upload`;
 
-export const uploadToCloud = async (result) => {
+type resultType = {
+  base64: string;
+}
+
+export const uploadToCloud = async (result: resultType) => {
   let base64Img = `data:image/jpg;base64,${result.base64}`;
   const data = {
     file: base64Img,
