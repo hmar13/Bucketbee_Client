@@ -1,3 +1,5 @@
+import theme from '../styles/theme.style';
+
 const bucket = {
   __typename: 'Bucket',
   categories: [{
@@ -120,4 +122,47 @@ const chat = {
   updatedAt: '021-03-15T16:05:48.012Z',
 }
 
-module.exports = { bucket, userA, userB, place, category, message, chat }
+const radioButtons = [
+  {
+    id: '1', // acts as primary key, should be unique and non-empty string
+    label: 'Beach',
+    value: 'option1',
+    labelStyle: {
+      color: theme.PRIMARY_COLOR_XLITE,
+      fontSize: 20,
+      fontFamily: 'Lato_300Light',
+    },
+    color: theme.PRIMARY_COLOR_XLITE,
+    size: 20,
+    containerStyle: {
+      alignSelf: 'flex-start',
+    },
+  },
+  {
+    id: '2',
+    label: 'Mountains',
+    value: 'option2',
+    color: theme.PRIMARY_COLOR_XLITE,
+    labelStyle: {
+      color: theme.PRIMARY_COLOR_XLITE,
+      fontSize: 20,
+      fontFamily: 'Lato_300Light',
+    },
+    size: 20,
+  },
+  {
+    id: '3',
+    label: 'City',
+    value: 'option3',
+    color: theme.PRIMARY_COLOR_XLITE,
+    size: 20,
+    labelStyle: {
+      color: theme.PRIMARY_COLOR_XLITE,
+      fontSize: 20,
+      fontFamily: 'Lato_300Light',
+    },
+    selected: true,
+  },
+];
+
+module.exports = { bucket, userA, userB, place, category, message, chat, radioButtons }
