@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
-import DotLoading from './dotLoading';
-import CameraModal from './CameraModal';
-import AddModal from './AddModal';
+import CameraModal from '../Components/CameraModal';
+import AddModal from '../Components/AddModal';
 import { uploadToCloud } from '../Operations/Upload';
 import * as MediaLibrary from 'expo-media-library';
 import { AntDesign } from '@expo/vector-icons';
