@@ -10,9 +10,13 @@ import {
   Image,
 } from 'react-native';
 import { Button } from 'react-native-paper';
-import { MaterialCommunityIcons } from '@expo/vector-icons';
 
-const Postcard = ({ route, navigation }) => {
+interface PostcardProps {
+  route: any;
+  navigation: any;
+}
+
+const Postcard: React.FC<PostcardProps> = ({ route, navigation }) => {
   const { photo, value, friendList, handleSend } = route.params;
   const animate = useRef(new Animated.Value(0));
   const [flipped, setFlipped] = useState(false);

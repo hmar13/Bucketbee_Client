@@ -1,14 +1,13 @@
 /* eslint-disable react-native/no-inline-styles */
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import theme from '../styles/theme.style';
-import { FAB, IconButton } from 'react-native-paper';
+import { FAB } from 'react-native-paper';
 
 import {
   Text,
   View,
   StyleSheet,
   FlatList,
-  Pressable,
   Image,
   Linking,
   ScrollView,
@@ -20,7 +19,12 @@ import { FontAwesome } from '@expo/vector-icons';
 import { Ionicons } from '@expo/vector-icons';
 import { MaterialIcons } from '@expo/vector-icons';
 
-const Place = ({ route, navigation }) => {
+interface PlaceProps {
+  route: any;
+  navigation: any;
+}
+
+const Place: React.FC<PlaceProps> = ({ route, navigation }) => {
   const [noteModalVisible, setNoteModalVisible] = useState(false);
   const place = route.params;
 
