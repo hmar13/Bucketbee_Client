@@ -2,16 +2,11 @@ import React from 'react';
 import { StyleSheet } from 'react-native';
 
 import MapView, { PROVIDER_GOOGLE, Marker } from 'react-native-maps';
+import Region from '../interfaces/Region';
 
-type regionObject = {
-  latitude: number;
-  longitude: number;
-  latitudeDelta: number;
-  longitudeDelta: number;
-};
 
 interface PropsMyMapView {
-  region: regionObject;
+  region: Region;
   small: boolean | null;
 }
 

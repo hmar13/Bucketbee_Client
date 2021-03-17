@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, Dispatch, SetStateAction } from 'react';
 import {
   Text,
   View,
@@ -10,21 +10,35 @@ import {
 import { Button } from 'react-native-paper';
 import MapView from './MapView';
 import theme from '../styles/theme.style';
+import Position from '../interfaces/Position';
+import Region from '../interfaces/Region';
 
-const CreatePlace = ({ setCMVisible, handleModalChange }) => {
-  const [region, setRegion] = useState(null);
+interface CreatePlaceProps {
+  setCMVisible(val: boolean): void;
+  handleModalChange: any
+}
+const initialRegion ={
+  latitude: 0,
+  latitudeDelta: 0,
+  longitude: 0,
+  longitudeDelta: 0,
+}
+
+const CreatePlace: React.FC<CreatePlaceProps> = ({ setCMVisible, handleModalChange }) => {
+  const [region, setRegion] = useState<Region>(initialRegion);
   const [name, setName] = useState('');
   const [notes, setNotes] = useState('');
   const latitudeDelta = 0.04;
   const longitudeDelta = 0.05;
 
   const getCurrentLoc = async () => {
+    // @ts-ignore: Unreachable code error
     await navigator.geolocation.getCurrentPosition(
-      (position) => {
+      (position: Position) => {
         const { latitude, longitude } = position.coords;
         setRegion({ latitude, longitude, latitudeDelta, longitudeDelta });
       },
-      (err) => Alert.alert(err),
+      (err: any) => Alert.alert(err),
     );
   };
 
