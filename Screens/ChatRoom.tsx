@@ -29,7 +29,16 @@ import moment from 'moment';
 // onContentSizeChange={() => this.flatList.scrollToEnd({animated: true})}
 // onLayout={() => this.flatList.scrollToEnd({animated: true})}
 
-const ChatRoom = ({ route, navigation }) => {
+interface PropsChatRoom {
+  navigation: any;
+  route: any;
+}
+
+type m_arg = {
+  id: string
+}
+
+const ChatRoom: React.FC<PropsChatRoom> = ({ route, navigation }) => {
   const { chat, userId } = route.params;
   const chatId = chat.id;
 
@@ -72,7 +81,7 @@ const ChatRoom = ({ route, navigation }) => {
             getChatById: {
               ...prev.getChatById,
               messages:
-                prev.getChatById.messages.filter((m) => m.id === newMessage.id)
+                prev.getChatById.messages.filter((m: m_arg) => m.id === newMessage.id)
                   .length === 0
                   ? [...prev.getChatById.messages, newMessage]
                   : prev.getChatById.messages,
@@ -113,7 +122,7 @@ const ChatRoom = ({ route, navigation }) => {
 
   if (currentChat && isLoaded) {
     const reversed = [...currentChat.messages].reverse();
-    const friendUser = currentChat.members.filter((m) => m.id !== userId)[0];
+    const friendUser = currentChat.members.filter((m: m_arg) => m.id !== userId)[0];
     const chatName = friendUser.firstName;
     return (
       <ImageBackground
@@ -146,7 +155,7 @@ const ChatRoom = ({ route, navigation }) => {
             <FlatList
               data={reversed}
               keyExtractor={(item) => item.id}
-              inverted={-1}
+              inverted
               renderItem={({ item }) => {
                 return (
                   <View
