@@ -9,10 +9,10 @@ import { useMutation } from '@apollo/client';
 import { AuthContext } from '../Operations/Store';
 
 const AnimatedFormView = () => {
-  const [count, setCount] = useState(0);
-  const [location, setLocation] = useState('');
-  const [vibe, setVibe] = useState('');
-  const [emojis, setEmojis] = useState('');
+  const [count, setCount] = useState<number>(0);
+  const [location, setLocation] = useState<string | undefined>();
+  const [vibe, setVibe] = useState<string | undefined>();
+  const [emojis, setEmojis] = useState<string | undefined>();
   const { dispatch } = useContext(AuthContext);
 
   const [addInfoToUser] = useMutation(ADD_INFO_TO_USER, {

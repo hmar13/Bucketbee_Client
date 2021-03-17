@@ -18,7 +18,7 @@ import { FontAwesome } from '@expo/vector-icons';
 import Place from '../interfaces/Place';
 
 interface PropsPlaceDetail {
-  place: Place;
+  place: Place | undefined;
   onPress(): void;
   pdVisible: boolean;
   onAdd(): void;

@@ -1,13 +1,17 @@
-import React from 'react';
+import React, {Dispatch, SetStateAction} from 'react';
 import { View, Text, StyleSheet, TextInput } from 'react-native';
 import * as Animatable from 'react-native-animatable';
 import { Button } from 'react-native-paper';
 import theme from '../../styles/theme.style';
 
+type SetLocationType = Dispatch<SetStateAction<string | undefined>>
+type SetCountType = Dispatch<SetStateAction<number>>
+
+
 interface Props {
-  setCount(val: Function): void;
-  location: string;
-  setLocation(val: string): void;
+  setCount: SetCountType;
+  location: string | undefined;
+  setLocation: SetLocationType;
 }
 
 const FormStep1: React.FC<Props> = ({ setCount, location, setLocation }) => {

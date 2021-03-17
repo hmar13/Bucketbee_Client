@@ -17,7 +17,7 @@ import {
 } from 'react-native';
 
 const CameraPage = () => {
-  let camera;
+  let camera: null | any;
 
   const [type, setType] = useState(Camera.Constants.Type.back);
   const [previewVisible, setPreviewVisible] = useState(false);

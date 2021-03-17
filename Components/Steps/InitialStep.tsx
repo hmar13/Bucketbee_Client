@@ -1,12 +1,15 @@
-import React, { useContext } from 'react';
+import React, { useContext, Dispatch, SetStateAction } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import { AuthContext } from '../../Operations/Store';
 import * as Animatable from 'react-native-animatable';
 import { Button } from 'react-native-paper';
 import theme from '../../styles/theme.style';
 
+
+type SetCountType = Dispatch<SetStateAction<number>>
+
 interface Props {
-  setCount(val: Function): void;
+  setCount: SetCountType
 }
 
 const InitialStep: React.FC<Props> = ({ setCount }) => {

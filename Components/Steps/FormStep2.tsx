@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, Dispatch, SetStateAction } from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import * as Animatable from 'react-native-animatable';
 import { Button } from 'react-native-paper';
@@ -47,13 +47,17 @@ const radioButtonsData = [
   },
 ];
 
+type SetCountType = Dispatch<SetStateAction<number>>
+type SetVibeType = Dispatch<SetStateAction<string | undefined>>
+
+
 interface Props {
-  setCount(val: Function): void;
-  setVibe(val: string): void;
-  onPressRadioButton(val: []): void;
+  setCount: SetCountType;
+  setVibe: SetVibeType;
+  vibe: string | undefined;
 }
 
-const FormStep2: React.FC<Props> = ({ setCount, setVibe }) => {
+const FormStep2: React.FC<Props> = ({ setCount, setVibe, vibe }) => {
   const [radioButtons, setRadioButtons] = useState<RadioButtonProps[]>(
     radioButtonsData,
   );
