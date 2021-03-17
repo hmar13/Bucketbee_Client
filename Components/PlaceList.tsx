@@ -23,12 +23,13 @@ interface PlaceListProps {
   places: Place[];
   catId: string;
   bucketId: string;
+  // keyExtractor?: ((item: Place, index: number) => string) | undefined
 }
 
 const PlaceList: React.FC<PlaceListProps> = ({ places, catId, bucketId }) => {
   const navigation = useNavigation();
   const [deleteVisible, setDeleteVisible] = useState(false);
-  const [placeId, setPlaceId] = useState<string | null>(null);
+  const [placeId, setPlaceId] = useState<string | undefined>();
   const [deletePlace] = useMutation(DELETE_PLACE);
 
   const handleDelete = (): void => {

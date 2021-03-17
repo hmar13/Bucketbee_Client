@@ -4,7 +4,7 @@ export default interface Place {
   bucketId?: string;
   catId?: string;
   formatted_address: string;
-  id?: string;
+  id: string;
   imgArr: string[] | undefined;
   international_phone_number: number | null;
   latitude: number;

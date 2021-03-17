@@ -68,7 +68,7 @@ const CameraPage = () => {
         size={40}
         color={theme.PRIMARY_COLOR_XLITE}
         onPress={() =>
-          setType((current) => (current === 'back' ? 'front' : 'back'))
+          setType((current: string) => (current === 'back' ? 'front' : 'back'))
         }
       />
     </Camera>

@@ -147,8 +147,10 @@ const Map: React.FC<PropsMap> = ({ navigation }) => {
         description = types[0];
       }
     }
+    let id = '';
 
     setPlacePreview({
+      id,
       name,
       rating,
       formatted_address,
