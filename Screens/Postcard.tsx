@@ -11,12 +11,21 @@ import {
 } from 'react-native';
 import { Button } from 'react-native-paper';
 
-interface PostcardProps {
-  route: any;
-  navigation: any;
-}
+import { StackNavigationProp } from '@react-navigation/stack';
+import ParamList from '../interfaces/ParamsList';
 
-const Postcard: React.FC<PostcardProps> = ({ route, navigation }) => {
+type ProfileScreenNavigationProp = StackNavigationProp<
+  ParamList,
+  'Postcard'
+>;
+
+type Props = {
+  navigation: ProfileScreenNavigationProp;
+  route: any;
+};
+
+
+const Postcard = ({ route, navigation }: Props) => {
   const { photo, value, friendList, handleSend } = route.params;
   const animate = useRef(new Animated.Value(0));
   const [flipped, setFlipped] = useState(false);

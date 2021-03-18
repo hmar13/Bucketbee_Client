@@ -9,8 +9,10 @@ import Inbox from '../Screens/Inbox';
 import Friends from '../Screens/Friends';
 import Postcard from '../Screens/Postcard';
 import Profile from '../Screens/Profile';
+import ParamList from '../interfaces/ParamsList';
 
-const Stack = createStackNavigator();
+const Stack = createStackNavigator<ParamList>();
+
 
 const ExploreStackNavi = () => {
   return (

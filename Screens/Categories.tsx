@@ -25,12 +25,20 @@ import { CAT_ARRAY_FRAGMENT } from '../Services/Categories/CatFragment';
 import Bucket from '../interfaces/Bucket';
 import Category from '../interfaces/Category';
 
-interface CategoriesProps {
-  navigation: any;
-  route: any;
-}
+import { StackNavigationProp } from '@react-navigation/stack';
+import ParamList from '../interfaces/ParamsList';
 
-const Categories: React.FC<CategoriesProps> = ({ route, navigation }) => {
+type ProfileScreenNavigationProp = StackNavigationProp<
+  ParamList,
+  'Categories'
+>;
+
+type Props = {
+  navigation: ProfileScreenNavigationProp;
+  route: any;
+};
+
+const Categories = ({ route, navigation }: Props) => {
   const { id } = route.params;
 
   const [modalVisible, setModalVisible] = useState(false);

@@ -15,7 +15,6 @@ import { Button } from 'react-native-paper';
 import BouncyCheckbox from 'react-native-bouncy-checkbox';
 import { Ionicons } from '@expo/vector-icons';
 import { GET_CHATS } from '../Services/Chats/ChatsQuery';
-import getChats from '../interfaces/GetChats';
 
 interface PropsFriends {
   navigation: any;

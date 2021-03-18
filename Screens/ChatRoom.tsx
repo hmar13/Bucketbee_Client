@@ -23,22 +23,23 @@ import {
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { Ionicons } from '@expo/vector-icons';
 import moment from 'moment';
+import Chat from '../interfaces/Chat';
+import User from '../interfaces/User';
 
-//attempt to animate message sending in chat room
-// ref={ref => this.flatList = ref}
-// onContentSizeChange={() => this.flatList.scrollToEnd({animated: true})}
-// onLayout={() => this.flatList.scrollToEnd({animated: true})}
+import { StackNavigationProp } from '@react-navigation/stack';
+import ParamList from '../interfaces/ParamsList';
 
-interface PropsChatRoom {
-  navigation: any;
+type ProfileScreenNavigationProp = StackNavigationProp<
+  ParamList,
+  'ChatRoom'
+>;
+
+type Props = {
+  navigation: ProfileScreenNavigationProp;
   route: any;
-}
+};
 
-type m_arg = {
-  id: string
-}
-
-const ChatRoom: React.FC<PropsChatRoom> = ({ route, navigation }) => {
+const ChatRoom = ({ route, navigation }: Props) => {
   const { chat, userId } = route.params;
   const chatId = chat.id;
 
@@ -64,7 +65,7 @@ const ChatRoom: React.FC<PropsChatRoom> = ({ route, navigation }) => {
     variables: { chatId },
   });
   if (error) console.log(`Error! ${error.message}`);
-  const currentChat = data?.getChatById;
+  const currentChat: Chat = data?.getChatById;
 
   const [postMessageToChat] = useMutation(POST_MESSAGE_TO_CHAT);
   const [addUserToBucket] = useMutation(ADD_USER_TO_BUCKET);
@@ -81,7 +82,7 @@ const ChatRoom: React.FC<PropsChatRoom> = ({ route, navigation }) => {
             getChatById: {
               ...prev.getChatById,
               messages:
-                prev.getChatById.messages.filter((m: m_arg) => m.id === newMessage.id)
+                prev.getChatById.messages.filter((m: User) => m.id === newMessage.id)
                   .length === 0
                   ? [...prev.getChatById.messages, newMessage]
                   : prev.getChatById.messages,
@@ -121,8 +122,9 @@ const ChatRoom: React.FC<PropsChatRoom> = ({ route, navigation }) => {
   };
 
   if (currentChat && isLoaded) {
+    // @ts-ignore: Unreachable code error
     const reversed = [...currentChat.messages].reverse();
-    const friendUser = currentChat.members.filter((m: m_arg) => m.id !== userId)[0];
+    const friendUser = currentChat.members.filter((m: User) => m.id !== userId)[0];
     const chatName = friendUser.firstName;
     return (
       <ImageBackground

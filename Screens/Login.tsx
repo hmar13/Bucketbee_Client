@@ -10,19 +10,29 @@ import {
   ActivityIndicator,
   Alert,
 } from 'react-native';
-import DotLoading from '../Components/dotLoading';
 import { LOGIN_USER } from '../Services/Users/UsersMutation';
 import theme from '../styles/theme.style';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { Input } from 'react-native-elements';
-import { useQuery, useMutation } from '@apollo/client';
+import { useMutation } from '@apollo/client';
 import { AuthContext } from '../Operations/Store';
 
-interface PropsLogin {
-  navigation: any;
-}
+import { StackNavigationProp } from '@react-navigation/stack';
+import ParamList from '../interfaces/ParamsList';
 
-const Login: React.FC<PropsLogin> = ({ navigation }) => {
+
+type ProfileScreenNavigationProp = StackNavigationProp<
+  ParamList,
+  'Login'
+>;
+
+type Props = {
+  navigation: ProfileScreenNavigationProp;
+};
+
+
+const Login = ({ navigation }: Props) => {
+
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [wait, setWait] = useState(false);

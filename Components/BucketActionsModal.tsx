@@ -280,7 +280,6 @@ const BucketActionsModal: React.FC<BucketActionsModalProps> = ({
             deleteVisible={deleteVisible}
             setDeleteVisible={setDeleteVisible}
             handleDelete={handleDelete}
-            typeOf="bucket"
           />
         </View>
       </Modal>

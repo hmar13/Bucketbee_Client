@@ -15,13 +15,21 @@ import { AuthContext } from '../Operations/Store';
 import theme from '../styles/theme.style';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { Input } from 'react-native-elements';
-import { useQuery, useMutation } from '@apollo/client';
+import { useMutation } from '@apollo/client';
 
-interface PropsRegister {
-  navigation: any;
-}
+import { StackNavigationProp } from '@react-navigation/stack';
+import ParamList from '../interfaces/ParamsList';
 
-const Register: React.FC<PropsRegister> = ({ navigation }) => {
+type ProfileScreenNavigationProp = StackNavigationProp<
+  ParamList,
+  'Register'
+>;
+
+type Props = {
+  navigation: ProfileScreenNavigationProp;
+};
+
+const Register = ({ navigation }: Props) => {
   const [name, setName] = useState('');
   const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');

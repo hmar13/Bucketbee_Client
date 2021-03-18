@@ -18,9 +18,17 @@ import Place from '../interfaces/Place';
 import Position from '../interfaces/Position';
 import Region from '../interfaces/Region';
 
-interface PropsMap {
-  navigation: any;
-}
+import { StackNavigationProp } from '@react-navigation/stack';
+import ParamList from '../interfaces/ParamsList';
+
+type ProfileScreenNavigationProp = StackNavigationProp<
+  ParamList,
+  'Map'
+>;
+
+type Props = {
+  navigation: ProfileScreenNavigationProp;
+};
 
 type PhotoObjType = {
   height: number;
@@ -29,7 +37,7 @@ type PhotoObjType = {
   width: number;
 };
 
-const Map: React.FC<PropsMap> = ({ navigation }) => {
+const Map = ({ navigation }: Props) => {
   const [reg, setReg] = useState<Region | null>(null);
   const [placePreview, setPlacePreview] = useState<Place | undefined>();
   const [pdVisible, setPdVisible] = useState(false);

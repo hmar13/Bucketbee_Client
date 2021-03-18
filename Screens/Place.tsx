@@ -19,12 +19,20 @@ import { FontAwesome } from '@expo/vector-icons';
 import { Ionicons } from '@expo/vector-icons';
 import { MaterialIcons } from '@expo/vector-icons';
 
-interface PlaceProps {
-  route: any;
-  navigation: any;
-}
+import { StackNavigationProp } from '@react-navigation/stack';
+import ParamList from '../interfaces/ParamsList';
 
-const Place: React.FC<PlaceProps> = ({ route, navigation }) => {
+type ProfileScreenNavigationProp = StackNavigationProp<
+  ParamList,
+  'Place'
+>;
+
+type Props = {
+  navigation: ProfileScreenNavigationProp;
+  route: any;
+};
+
+const Place = ({ route, navigation }: Props) => {
   const [noteModalVisible, setNoteModalVisible] = useState(false);
   const place = route.params;
 
