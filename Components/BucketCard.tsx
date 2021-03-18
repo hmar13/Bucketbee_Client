@@ -7,15 +7,12 @@ import {
   TouchableHighlight
 } from 'react-native';
 import moment from 'moment';
-
 import Bucket from '../interfaces/Bucket';
-
 
 interface BucketCardProps {
   bucket: Bucket;
   onPress(): void;
 }
-
 
 const BucketCard: React.FC<BucketCardProps> = ({ bucket, onPress }) => {
   return (

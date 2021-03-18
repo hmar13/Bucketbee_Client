@@ -1,17 +1,10 @@
-import React, { useState } from 'react';
+import React from 'react';
 import {
-  Text,
   View,
   StyleSheet,
-  Pressable,
-  FlatList,
-  TextInput,
-  SafeAreaView,
 } from 'react-native';
-import { useQuery, useMutation } from '@apollo/client';
 import CreatePlace from './CreatePlace';
 import CloseKeyboard from '../Operations/CloseKeyboard';
-import { Button } from 'react-native-paper';
 import Modal from 'react-native-modal';
 import theme from '../styles/theme.style';
 

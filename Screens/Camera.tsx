@@ -8,12 +8,8 @@ import { Camera } from 'expo-camera';
 
 import {
   View,
-  Text,
-  TouchableWithoutFeedback,
   TouchableOpacity,
   StyleSheet,
-  ImageBackground,
-  Alert,
 } from 'react-native';
 
 const CameraPage = () => {
