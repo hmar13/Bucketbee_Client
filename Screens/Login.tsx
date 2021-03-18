@@ -20,6 +20,7 @@ import { AuthContext } from '../Operations/Store';
 import { StackNavigationProp } from '@react-navigation/stack';
 import ParamList from '../interfaces/ParamsList';
 
+
 type ProfileScreenNavigationProp = StackNavigationProp<
   ParamList,
   'Login'
@@ -31,6 +32,7 @@ type Props = {
 
 
 const Login = ({ navigation }: Props) => {
+
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [wait, setWait] = useState(false);
