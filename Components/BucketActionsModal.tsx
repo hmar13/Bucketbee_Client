@@ -23,7 +23,6 @@ import BouncyCheckbox from 'react-native-bouncy-checkbox';
 import { AntDesign } from '@expo/vector-icons';
 import Bucket from '../interfaces/Bucket';
 import Chat from '../interfaces/Chat';
-// import User from '../interfaces/User';
 
 interface BucketActionsModalProps {
   baModalVisible: boolean;
@@ -99,7 +98,6 @@ const BucketActionsModal: React.FC<BucketActionsModalProps> = ({
       };
       let currentChats: Chat[] = [];
       if (data && data.getChats) currentChats = data.getChats;
-      console.log('CURRENT CHATS ',currentChats)
       friendList.forEach((id) => {
         let existingChat = currentChats.filter((c) => {
           let memberIDS = c.members.map((m) => m.id);
