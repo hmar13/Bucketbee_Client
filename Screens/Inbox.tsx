@@ -25,9 +25,9 @@ import {
 } from 'react-native';
 import { Entypo } from '@expo/vector-icons';
 
-interface InboxProps {
+type Props = {
   navigation: any;
-}
+};
 
 interface User {
   _typename: string;
@@ -46,7 +46,7 @@ interface User {
   vibe: string;
 }
 
-const Inbox: React.FC<InboxProps> = ({ navigation }) => {
+const Inbox = ({ navigation }: Props) => {
   const [openFAB, setOpenFab] = useState(false);
   const [caModalVisible, setCaModalVisible] = useState(false);
   const [currentAction, setCurrentAction] = useState('');

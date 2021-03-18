@@ -21,14 +21,24 @@ import * as ImagePicker from 'expo-image-picker';
 import { FAB, Portal, Provider } from 'react-native-paper';
 import theme from '../styles/theme.style';
 import { Ionicons } from '@expo/vector-icons';
+
 import moment from 'moment';
 import User from '../interfaces/User';
 
-interface PropsProfile {
-  navigation: any;
-}
+import { StackNavigationProp } from '@react-navigation/stack';
+import ParamList from '../interfaces/ParamsList';
 
-const Profile: React.FC<PropsProfile> = ({ navigation }) => {
+type ProfileScreenNavigationProp = StackNavigationProp<
+  ParamList,
+  'Profile'
+>;
+
+type Props = {
+  navigation: ProfileScreenNavigationProp;
+};
+
+
+const Profile = ({ navigation }: Props) => {
   const [openFAB, setOpenFab] = useState(false);
   const [user, setUser] = useState<null | User>(null);
   const [isLoaded, setIsLoaded] = useState(false);

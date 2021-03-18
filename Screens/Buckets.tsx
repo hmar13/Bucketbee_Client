@@ -9,12 +9,19 @@ import BucketAddModal from '../Components/BucketAddModal';
 import { FAB } from 'react-native-paper';
 import theme from '../styles/theme.style';
 import Bucket from '../interfaces/Bucket';
+import { StackNavigationProp } from '@react-navigation/stack';
+import ParamList from '../interfaces/ParamsList';
 
-interface BucketsProps {
-  navigation: any
-}
+type ProfileScreenNavigationProp = StackNavigationProp<
+  ParamList,
+  'Buckets'
+>;
 
-const Buckets: React.FC<BucketsProps> = ({ navigation }) => {
+type Props = {
+  navigation: ProfileScreenNavigationProp;
+};
+
+const Buckets = ({ navigation }: Props) => {
   const [modalVisible, setModalVisible] = useState(false);
   const [userId, setUserId] = useState<string | null>(null);
   const [isLoaded, setIsLoaded] = useState(false);

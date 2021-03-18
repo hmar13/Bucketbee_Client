@@ -20,12 +20,19 @@ import {
   ImageBackground,
   Alert,
 } from 'react-native';
+import { StackNavigationProp } from '@react-navigation/stack';
+import ParamList from '../interfaces/ParamsList';
 
-interface PropsExplore {
-  navigation: any;
-}
+type ProfileScreenNavigationProp = StackNavigationProp<
+  ParamList,
+  'Explore'
+>;
 
-const Explore: React.FC<PropsExplore> = ({ navigation }) => {
+type Props = {
+  navigation: ProfileScreenNavigationProp;
+};
+
+const Explore = ({ navigation }: Props) => {
   const [user, setUser] = useState<User | null>(null);
   const [isLoaded, setIsLoaded] = useState(false);
 
