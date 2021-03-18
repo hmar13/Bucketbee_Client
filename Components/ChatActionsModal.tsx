@@ -15,7 +15,6 @@ import BouncyCheckbox from 'react-native-bouncy-checkbox';
 import ImageUpload from './ImageUpload';
 import theme from '../styles/theme.style';
 
-
 interface ChatActionsModalProps {
   currentAction: string;
   caModalVisible: boolean;

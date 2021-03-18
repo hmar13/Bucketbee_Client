@@ -20,7 +20,6 @@ import { AuthContext } from '../Operations/Store';
 import { StackNavigationProp } from '@react-navigation/stack';
 import ParamList from '../interfaces/ParamsList';
 
-
 type ProfileScreenNavigationProp = StackNavigationProp<
   ParamList,
   'Login'

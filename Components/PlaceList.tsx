@@ -23,7 +23,6 @@ interface PlaceListProps {
   places: Place[];
   catId: string;
   bucketId: string;
-  // keyExtractor?: ((item: Place, index: number) => string) | undefined
 }
 
 const PlaceList: React.FC<PlaceListProps> = ({ places, catId, bucketId }) => {
