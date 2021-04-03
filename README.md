@@ -79,8 +79,8 @@ Here is the original app demo video on Youtube:
 - [LinkedIn](https://www.linkedin.com/in/haydnmartin/)
 
 ### Andras Varadi (TypeScript, Testing) 
--[Github](https://github.com/andrasvaradi)
--[LinkedIn](https://www.linkedin.com/in/andrasvaradi/)
+- [Github](https://github.com/andrasvaradi)
+- [LinkedIn](https://www.linkedin.com/in/andrasvaradi/)
 
 # Next Steps
 
