@@ -1,3 +1,3 @@
-import { REACT_NATIVE_GOOGLE_API_KEY } from '@env';
+import { REACT_NATIVE_GOOGLE_API_KEY, REACT_NATIVE_URL } from '@env';
 
-export default { REACT_NATIVE_GOOGLE_API_KEY };
+export default { REACT_NATIVE_GOOGLE_API_KEY, REACT_NATIVE_URL };
