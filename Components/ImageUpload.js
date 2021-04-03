@@ -1,7 +1,5 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import {
-  Button,
-  Image,
   View,
   Platform,
   StyleSheet,
@@ -35,9 +33,9 @@ const ImageUpload = ({ photo, setPhoto }) => {
       base64: true,
       // quality: 1,
     });
-
     if (result.cancelled) return;
-
+    
+    console.log('result', result)
     const cloudURL = await uploadToCloud(result);
     setPhoto(cloudURL);
   };

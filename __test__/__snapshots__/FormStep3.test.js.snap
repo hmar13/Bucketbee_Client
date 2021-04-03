@@ -1,0 +1,165 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<FormStep3 /> Renders correctly 1`] = `
+<View
+  style={
+    Object {
+      "alignItems": "center",
+      "backgroundColor": "#0d525f",
+      "flex": 1,
+      "justifyContent": "center",
+    }
+  }
+>
+  <View
+    forwardedRef={[Function]}
+    style={
+      Object {
+        "height": 200,
+        "justifyContent": "center",
+        "opacity": 0,
+        "transform": Array [
+          Object {
+            "translateY": 500,
+          },
+        ],
+        "width": 300,
+      }
+    }
+  >
+    <Text
+      style={
+        Object {
+          "color": "#9affdc",
+          "fontFamily": "Poppins_400Regular",
+          "fontSize": 24,
+          "paddingBottom": 8,
+        }
+      }
+    >
+      Describe yourself in 3 emojis:
+    </Text>
+    <TextInput
+      allowFontScaling={true}
+      onChangeText={[Function]}
+      placeholder="Emojis go here"
+      placeholderTextColor="#9affdc"
+      rejectResponderTermination={true}
+      style={
+        Object {
+          "borderBottomColor": "#9affdc",
+          "borderBottomWidth": 2,
+          "color": "#9affdc",
+          "fontFamily": "Lato_300Light",
+          "fontSize": 22,
+          "height": 50,
+          "width": 280,
+        }
+      }
+      underlineColorAndroid="transparent"
+    />
+    <View
+      style={
+        Object {
+          "backgroundColor": "#9affdc",
+          "borderColor": "transparent",
+          "borderRadius": 4,
+          "borderStyle": "solid",
+          "borderWidth": 0,
+          "color": "#0d525f",
+          "elevation": 0,
+          "height": 50,
+          "justifyContent": "center",
+          "marginVertical": 20,
+          "minWidth": 64,
+          "width": 100,
+        }
+      }
+    >
+      <View
+        accessibilityRole="button"
+        accessibilityState={
+          Object {
+            "disabled": undefined,
+          }
+        }
+        accessible={true}
+        focusable={false}
+        onClick={[Function]}
+        onResponderGrant={[Function]}
+        onResponderMove={[Function]}
+        onResponderRelease={[Function]}
+        onResponderTerminate={[Function]}
+        onResponderTerminationRequest={[Function]}
+        onStartShouldSetResponder={[Function]}
+        style={
+          Array [
+            Object {
+              "overflow": "hidden",
+            },
+            Object {
+              "borderRadius": 4,
+            },
+          ]
+        }
+      >
+        <View
+          style={
+            Array [
+              Object {
+                "alignItems": "center",
+                "flexDirection": "row",
+                "justifyContent": "center",
+              },
+              undefined,
+            ]
+          }
+        >
+          <Text
+            numberOfLines={1}
+            selectable={false}
+            style={
+              Array [
+                Object {
+                  "color": "#000000",
+                  "fontFamily": "System",
+                  "fontWeight": "400",
+                },
+                Object {
+                  "textAlign": "left",
+                },
+                Array [
+                  Object {
+                    "letterSpacing": 1,
+                    "marginHorizontal": 16,
+                    "marginVertical": 9,
+                    "textAlign": "center",
+                  },
+                  undefined,
+                  Object {
+                    "textTransform": "uppercase",
+                  },
+                  Object {
+                    "color": "#6200ee",
+                    "fontFamily": "System",
+                    "fontWeight": "500",
+                  },
+                  Object {
+                    "fontFamily": "System",
+                    "fontWeight": "500",
+                  },
+                  Object {
+                    "color": "#0d525f",
+                  },
+                ],
+              ]
+            }
+          >
+            SUBMIT
+          </Text>
+        </View>
+      </View>
+    </View>
+  </View>
+</View>
+`;
